@@ -1,0 +1,12 @@
+
+:root {
+	--basement: var(--stone-1);
+	--font-sans: sans-serif;
+	--font-mono: monospace;
+	--font-copy: var(--font-sans);
+	--font-headline: var(--font-sans);
+}
+
+body {
+	background: var(--basement);
+}

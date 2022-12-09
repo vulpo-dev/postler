@@ -1,0 +1,23 @@
+{
+  "name": "postler-example",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "start": "postler serve",
+    "build": "postler build",
+    "check": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@types/react": "^18.0.21",
+    "postler": "0.1.0",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0"
+  }
+}
