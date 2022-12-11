@@ -1,12 +1,16 @@
+require('dotenv').config({ path: '../example/.env' })
 
 export default {
 	smtp: {
-		host: "smtp.ethereal.email",
+		host: process.env.SMTP_HOST,
 		port: 587,
 		secure: false,
 		auth: {
-			user: '',
-			pass: '',
+			user: process.env.SMTP_USER,
+			pass: process.env.SMTP_PASSWORD,
 		},
+	},
+	email: {
+		from: process.env.FROM_EMAIL,
 	}
 }

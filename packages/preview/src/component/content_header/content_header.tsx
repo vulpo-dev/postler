@@ -27,15 +27,11 @@ export let ContentHeader = () => {
 
 	return (
 		<StyledContentHeader>
-			<section>
+			<TitleSection>
 				<ContentTitle>
 					Previews
 				</ContentTitle>
-			</section>
-
-			<section>
-				
-			</section>
+			</TitleSection>
 
 			<LeftSection>
 				<div>
@@ -58,12 +54,17 @@ export let ContentHeader = () => {
 
 let StyledContentHeader = styled(TopBar.Header)`
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr;
 	background: #fff;
 	border-top-left-radius: var(--size-3);
 	border-top-right-radius: var(--size-3);
 	border: none;
 	padding: 0 var(--size-3);
+`
+
+let TitleSection = styled.section`
+	display: flex;
+	align-items: center;
 `
 
 let ContentTitle = styled.h4`

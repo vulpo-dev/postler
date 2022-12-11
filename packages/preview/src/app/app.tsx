@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '~/src/store'
 import { IconButton } from '~/src/component/button'
 import { toggleSidebar } from '~/src/store/layout.slice'
+import { SendEmail } from '~/src/component/send_email'
 
 let DRAWER_BREAKPOINT = '(max-width: 400px)'
 
@@ -20,10 +21,16 @@ export let App = () => {
 	return (
 		<StyledContainer>
 			<StyledHeader>
-				<IconButton onClick={() => dispatch(toggleSidebar())}>
-					<ListIcon size={24} />
-				</IconButton>
-				<Title>Postler</Title>
+				<HeaderSection>
+					<IconButton onClick={() => dispatch(toggleSidebar())}>
+						<ListIcon size={24} />
+					</IconButton>
+					<Title>Postler</Title>
+				</HeaderSection>
+
+				<HeaderSection>
+					<SendEmail />
+				</HeaderSection>
 			</StyledHeader>
 			<TopBar.Content>
 				<SidebarLayout>
@@ -75,10 +82,15 @@ let StyledContainer = styled(TopBar.Container)`
 let StyledHeader = styled(TopBar.Header)`
 	background: var(--background);
 	border: none;
-	display: flex;
-	align-items: center;
 	padding-left: var(--size-7);
 	padding-right: var(--size-3);
+	display: flex;
+	justify-content: space-between;
+`
+
+let HeaderSection = styled.section`
+	display: flex;
+	align-items: center;
 	gap: var(--size-3);
 `
 

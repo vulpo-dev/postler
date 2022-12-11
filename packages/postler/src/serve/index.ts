@@ -1,11 +1,9 @@
 import * as path from 'path'
-import { fastify, FastifyRequest } from 'fastify'
+import { fastify } from 'fastify'
 import cors from '@fastify/cors'
 import * as fs from 'fs/promises'
 import { existsSync } from 'fs'
 import watch from 'node-watch'
-
-
 
 import { buildFiles } from '../utils/build'
 import { getFiles, getPreviewDirectory } from '../utils/files'
@@ -14,6 +12,7 @@ import { onSrcChange, onDistChange } from './watch'
 import { createServeHandler, createRedirectHandler, createPreviewsHandler } from './preview'
 import { createUpdatesHandler } from './updates'
 import { createTemplateHandler, createTemplatesHandler } from './template'
+import { createSendEmailHandler } from './email'
 
 let TMP_DIR = '.postler'
 
@@ -71,6 +70,8 @@ export default async function handler({
 		// should return a JSON Schema
 		return {}
 	})
+
+	server.route(createSendEmailHandler(tmp))
 
 	let instance = await server.listen({ port })
 	let runningPort = instance.split(':').reverse().at(0)

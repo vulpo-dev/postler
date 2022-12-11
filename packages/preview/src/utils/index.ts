@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import ky from 'ky'
+import { useCallback, useEffect, useReducer, useRef } from 'react'
 import { useMatch } from 'react-router-dom'
 
 type CB<T> = (event: MessageEvent<T>) => void
@@ -66,4 +67,53 @@ export function useCurrentTemplate(): string {
 	let match = useMatch('/preview/:currentTemplate')
 	let { currentTemplate = '' } = match?.params ?? {}
 	return currentTemplate
+}
+
+type PostState<R> =
+	| { state: 'idle' }
+	| { state: 'loading' }
+	| { state: 'loaded', data: R }
+	| { state: 'error', error: unknown }
+
+type PostAction<Return> =
+	| { type: 'trigger' }
+	| { type: 'loaded', payload: Return }
+	| { type: 'error', payload: unknown }
+
+function postReducer<R>(state: PostState<R>, action: PostAction<R>): PostState<R> {
+	switch(action.type) {
+		case 'trigger': {
+			return { state: 'loading' }
+		}
+
+		case 'loaded': {
+			return { state: 'loaded', data: action.payload }
+		} 
+
+		case 'error': {
+			return { ...state, state: 'error', error: action.payload }
+		} 
+	}
+}
+
+type UsePost<Payload, Return> = [
+	PostState<Return>,
+	(p: Payload) => Promise<void>,
+]
+
+export function usePost<P, R = unknown>(url: string): UsePost<P, R> {
+	let [state, dispatch] = useReducer(postReducer, { state: 'idle' })
+
+	let trigger = useCallback(async (payload: P) => {
+		try {
+			dispatch({ type: 'trigger' })
+			let res = await ky.post(url, { json: payload })
+			let result = await res.json<R>().catch(() => null)
+			dispatch({ type: 'loaded', payload: result })
+		} catch (err) {
+			dispatch({ type: 'error', payload: err })
+		}
+	}, [url])
+
+	return [state as PostState<R>, trigger]
 }
