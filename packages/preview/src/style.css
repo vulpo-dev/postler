@@ -1,6 +1,8 @@
+@import "npm:@biotic-ui/leptons/style/scrollbar.css";
+@import "npm:@biotic-ui/leptons/style/text.css";
 
 :root {
-	--basement: var(--stone-1);
+	--background: var(--stone-1)!important;
 	--font-sans: sans-serif;
 	--font-mono: monospace;
 	--font-copy: var(--font-sans);
@@ -8,5 +10,5 @@
 }
 
 body {
-	background: var(--basement);
+	background: var(--background);
 }

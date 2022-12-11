@@ -28,6 +28,7 @@ export function useServerEvent(url: string, fn: CB<ServerEvent>) {
 
 	useEffect(() => {
 		let urlListeners = listeners.get(url) ?? []
+		
 		if (urlListeners.length > 1) {
 			return
 		}

@@ -1,7 +1,5 @@
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
-import { faker } from '@faker-js/faker'
-import { ellipsis } from '@biotic-ui/leptons'
 import { useQueryParams } from '@biotic-ui/std'
 import { cx } from '@emotion/css'
 
@@ -16,7 +14,7 @@ let getSentence = (key: string): string => {
 		return entry
 	}
 
-	let sentence = faker.lorem.sentence()
+	let sentence = ''
 	sentenceCache.set(key, sentence)
 	return sentence
 }
@@ -46,9 +44,9 @@ export let Previews = () => {
 									active: search.get('preview') === item.title
 								})}
 							>
-								<Title className={ellipsis}>{ item.title }</Title>
-								<span className={ellipsis}>{ getSentence(`${item.title}-top`) }</span>
-								<span className={ellipsis}>{ getSentence(`${item.title}-bottom`) }</span>
+								<Title className='biotic-text-ellipsis'>{ item.title }</Title>
+								<span className='biotic-text-ellipsis'>{ getSentence(`${item.title}-top`) }</span>
+								<span className='biotic-text-ellipsis'>{ getSentence(`${item.title}-bottom`) }</span>
 							</Link>
 						</ListItem>
 					)}

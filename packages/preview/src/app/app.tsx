@@ -1,37 +1,28 @@
+import { List as ListIcon } from 'phosphor-react'
 import styled from '@emotion/styled'
-import { useSelector } from 'react-redux'
-import { useMatchMedia } from '@biotic-ui/std'
-import { Pulse } from '@biotic-ui/leptons'
-import {
-	SidebarLayout,
-	Aside,
-	Main,
-	TopBar,
-} from '@biotic-ui/layout'
 
+import { SidebarLayout, Aside, Main, TopBar } from '~/src/component/layout'
 import { Templates } from '~/src/component/templates'
 import { Previews } from '~/src/component/previews'
 import { Preview } from '~/src/component/preview'
-import { RootState, Store } from '~/src/store'
-import { useState } from 'react'
+import { ContentHeader } from '~/src/component/content_header'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '~/src/store'
+import { IconButton } from '~/src/component/button'
+import { toggleSidebar } from '~/src/store/layout.slice'
 
 let DRAWER_BREAKPOINT = '(max-width: 400px)'
 
 export let App = () => {
-	let [isOpen] = useState(useMatchMedia('(min-width: 1400px)'))
-
-	let isLoading = useSelector((state: RootState) => {
-		let pending = Object
-			.values(state.templateApi.queries)
-			.filter(entry => entry?.status === 'pending')
-			.length
-
-		return pending > 0
-	})
+	let dispatch = useDispatch()
+	let isOpen = useSelector((state: RootState) => state.layout.sidebar.open)
 
 	return (
 		<StyledContainer>
 			<StyledHeader>
+				<IconButton onClick={() => dispatch(toggleSidebar())}>
+					<ListIcon size={24} />
+				</IconButton>
 				<Title>Postler</Title>
 			</StyledHeader>
 			<TopBar.Content>
@@ -48,17 +39,7 @@ export let App = () => {
 					<Main>
 						<MainContent>
 							<ContentContainer>
-								<ContentHeader>
-									<ContentTitle>
-										Previews
-									</ContentTitle>
-
-									<LoadingWrapper>
-									{ isLoading &&
-										<Pulse />
-									}
-									</LoadingWrapper>
-								</ContentHeader>
+								<ContentHeader />
 								<Content>
 									<Previews />
 									<Preview />
@@ -73,7 +54,7 @@ export let App = () => {
 }
 
 let AsideContent = styled.div`
-	background: var(--basement);
+	background: var(--background);
 	height: 100%;
 	padding: 0 var(--size-3);
 	padding-right: 0;
@@ -92,12 +73,13 @@ let StyledContainer = styled(TopBar.Container)`
 `
 
 let StyledHeader = styled(TopBar.Header)`
-	background: var(--basement);
+	background: var(--background);
 	border: none;
 	display: flex;
 	align-items: center;
 	padding-left: var(--size-7);
 	padding-right: var(--size-3);
+	gap: var(--size-3);
 `
 
 let Title = styled.h4`
@@ -106,25 +88,6 @@ let Title = styled.h4`
 
 let ContentContainer = styled(TopBar.Container)`
 	grid-template-rows: var(--size-8) auto;
-`
-
-let ContentHeader = styled(TopBar.Header)`
-	background: #fff;
-	border-top-left-radius: var(--size-3);
-	border-top-right-radius: var(--size-3);
-	border: none;
-	padding: 0 var(--size-3);
-	display: flex;
-	align-items: center;
-`
-
-let ContentTitle = styled.h4`
-	margin-bottom: 0;
-`
-
-let LoadingWrapper = styled.div`
-	margin-left: auto;
-	width: var(--size-7);
 `
 
 let Content = styled(TopBar.Content)`

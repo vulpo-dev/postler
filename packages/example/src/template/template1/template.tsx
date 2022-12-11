@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { Each, useProps } from 'postler'
+import { Each, useProps, Document, fallback } from 'postler'
 import { Button } from '../../component/button'
 
 export type Props = {
@@ -15,16 +15,16 @@ export type Item = {
 export let Template = () => {
 	let props = useProps<Props>()
 	return (
-		<html lang="en">
-		  <head>
-		    <meta charSet="utf-8"/>
-		    <title>Example Yoo</title>
-		  </head>
+		<Document lang="fuu">
 		  <body>
 		    <Title>Example</Title>
 		    <p>Name: {props.name}</p>
 		    <p>Email: {props.email}</p>
+		    
 		    <hr />
+
+		    <p>Fallback: {fallback(true, "fuu")}</p>
+
 		    <Button primary>Call to Action</Button>
 
 		    <ul>
@@ -33,7 +33,7 @@ export let Template = () => {
 			    	render={(item: Item) => <li>{ item.title }</li>} />
 		    </ul>
 		  </body>
-		</html>
+		</Document>
 	)
 }
 

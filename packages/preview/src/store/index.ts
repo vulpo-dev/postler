@@ -3,12 +3,16 @@ import { setupListeners } from '@reduxjs/toolkit/query/react'
 import { templatesApi } from './templates.slice'
 import { templateApi } from './template.slice'
 import { previewsApi } from './previews.slice'
+import { previewSlice } from './preview.slice'
+import { layoutSlice } from './layout.slice'
 
 export const Store = configureStore({
   reducer: {
     [templatesApi.reducerPath]: templatesApi.reducer,
     [templateApi.reducerPath]: templateApi.reducer,
     [previewsApi.reducerPath]: previewsApi.reducer,
+    preview: previewSlice.reducer,
+    layout: layoutSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware()

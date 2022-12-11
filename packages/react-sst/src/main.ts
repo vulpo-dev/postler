@@ -6,6 +6,7 @@ export {
 	lookup,
 	log,
 	cx,
+	fallback,
 	type ConditionProps,
 	type EachProps,
 } from './helpers/helpers'
@@ -13,7 +14,8 @@ export {
 export {
 	getKey,
 	makeKey,
-	handler as createPropsProxy,
+	createProxyHandler,
+	useTranslations,
 	useProps,
 } from './hooks'
 
@@ -21,3 +23,5 @@ export {
 	type PropProxy,
 	type ToString,
 } from './types'
+
+export { Document } from './components'

@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react"
 
 import { PropProxy, ToString } from '../types'
+import { isProp } from "../hooks"
 
 export type Condition = ToString | undefined
 
@@ -73,7 +74,7 @@ export function log<T extends Array<ToString>>(...args: T): string {
 	return `{{log ${args.map(a => a.toString()).join(' ')}}}`
 }
 
-function getCondition(condition?: Condition) {
+function getCondition(condition: Condition) {
 	return condition ? condition.toString() : 'false'
 }
 
@@ -88,4 +89,15 @@ export function cx(...args: Array<string | { [prop: string]: Condition }>): stri
 	})
 
 	return `${classes.join(' ')} ${templates.join(' ')}`
+}
+
+export function fallback(value: Condition, defaultValue: any) {
+
+	let cond = isProp(value)
+		? getCondition(value)
+		: typeof value === 'string'
+		? true
+		: value
+		
+	return `{{#if ${cond}}}${value}{{else}}${defaultValue}{{/if}}`
 }

@@ -86,10 +86,10 @@ export let Img = styled.img`
 export let Container = styled.td`
 	display: block;
 	margin: 0 auto !important;
-	max-width: 480px;
 	padding-top: 80px;
 	padding-bottom: 130px;
-	width: 480px;
+	width: 98%;
+	max-width: 480px;
 `
 
 export let Content = styled.div`

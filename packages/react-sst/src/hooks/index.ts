@@ -1,5 +1,10 @@
 import { PropProxy } from '../types'
 
+/**
+ * getKey gets an array of strings and joins them
+ * together using a dot (.) turning them into
+ * a property access
+ */
 export let getKey = (...args: Array<string | undefined>): string =>  {
 	return args
 		.filter(str => str !== undefined)
@@ -7,7 +12,12 @@ export let getKey = (...args: Array<string | undefined>): string =>  {
 }
 
 type MakeKeyFn = (key: string) => string
-export let makeKey: MakeKeyFn = key => {
+
+/**
+ * makeKey accepts a string and returns a handlebars
+ * compatible key
+ */
+export let makeKey: MakeKeyFn = (key: string) => {
 	if (key.includes('-')) {
 		return `[${key}]`
 	}
@@ -15,7 +25,11 @@ export let makeKey: MakeKeyFn = key => {
 	return key
 }
 
-export function handler(level: Array<string | undefined>): ProxyHandler<any> {
+/**
+ * createProxyHandler returns getter proxy, @params level is an array
+ * storing the current path of the accessed object
+ */
+export function createProxyHandler(level: Array<string | undefined>): ProxyHandler<any> {
 	return {
 		get: (target, key) => {
 			/**
@@ -37,11 +51,14 @@ export function handler(level: Array<string | undefined>): ProxyHandler<any> {
 			if (key === 'at') {
 				return (index: number) => {
 					let str = new String(getKey(...level, `[${index}]`))
-					let obj = new Proxy(str, handler([...level, `[${index}]`]))
+					let obj = new Proxy(str, createProxyHandler([...level, `[${index}]`]))
 					return obj
 				}
 			}
 
+			if (key === 'isProp') {
+				return true
+			}
 
 			if (target[key]) {
 				return target[key]
@@ -59,12 +76,28 @@ export function handler(level: Array<string | undefined>): ProxyHandler<any> {
 
 			let _key = makeKey(key.toString())
 			let str = new String(getKey(...level, _key))
-			let obj = new Proxy(str, handler([...level, _key]))
+			let obj = new Proxy(str, createProxyHandler([...level, _key]))
 			return obj
 		},
 	} as ProxyHandler<any>
 }
 
 export function useProps<T>(): PropProxy<T> {
-	return new Proxy({}, handler([]))
+	return new Proxy({}, createProxyHandler(['props']))
+}
+
+export function useTranslations<T>(): PropProxy<T> {
+	return new Proxy({}, createProxyHandler(['t']))
+}
+
+export function isProp(value: any): boolean {
+	if (typeof value === 'string') {
+		return hasProp(value) ? value.isProp : false
+	}
+
+	return false
+}
+
+function hasProp(value: any): value is { isProp: boolean } {
+	return value.isProp !== undefined
 }
