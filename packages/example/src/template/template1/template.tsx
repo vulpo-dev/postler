@@ -1,42 +1,48 @@
 import styled from "@emotion/styled"
-import { Each, useProps, Document, fallback } from 'postler'
+import { Each, createTranslations, Document, fallback, html } from 'postler'
 import { Button } from '../../component/button'
+import { props, Item } from './types'
+import { Translation } from './translations'
 
-export type Props = {
-	name: string,
-	email: string,
-	items: Array<Item>
-}
-
-export type Item = {
-	title: string
-}
+let t = createTranslations<Translation>()
 
 export let Template = () => {
-	let props = useProps<Props>()
 	return (
 		<Document lang="fuu">
-		  <body>
-		    <Title>Example</Title>
+		  <Body>
+		    <Title>{ t.headline }</Title>
 		    <p>Name: {props.name}</p>
 		    <p>Email: {props.email}</p>
+
+		    <hr />
+
+		    <p>{ t.text }</p>
+		    <p>{ html(t.expire) }</p>
 		    
 		    <hr />
 
 		    <p>Fallback: {fallback(true, "fuu")}</p>
 
-		    <Button primary>Call to Action</Button>
+		    <Button primary>
+		    	{ t.label }
+		    </Button>
 
 		    <ul>
 			    <Each
 			    	items={props.items}
 			    	render={(item: Item) => <li>{ item.title }</li>} />
 		    </ul>
-		  </body>
+		  </Body>
 		</Document>
 	)
 }
 
 let Title = styled.h1`
 	font-family: sans-serif;
+`
+
+let Body = styled.body`
+	.bold {
+		font-weight: bold;
+	}
 `

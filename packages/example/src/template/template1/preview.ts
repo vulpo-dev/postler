@@ -1,23 +1,29 @@
 import { faker } from '@faker-js/faker'
 
 import { Previews, Item } from 'postler'
-import { Props, Item as PropItem } from './template'
+import { Props, Item as PropItem } from './types'
 
 export let Data: Previews<Props> = [
 	Item('title', {
 		name: faker.name.fullName(),
 		email: faker.internet.email(),
 		items: getItems(),
+		propject: faker.internet.domainName(),
+		expire_in: 5,
 	}),
 	Item('title2', {
 		name: faker.name.fullName(),
 		email: faker.internet.email(),
 		items: getItems(),
+		propject: faker.internet.domainName(),
+		expire_in: 10,
 	}),
 	Item('title3', {
 		name: faker.name.fullName(),
 		email: faker.internet.email(),
 		items: getItems(),
+		propject: faker.internet.domainName(),
+		expire_in: 120,
 	}),	
 ]
 

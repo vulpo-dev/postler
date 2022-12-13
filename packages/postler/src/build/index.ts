@@ -75,24 +75,43 @@ export default async function handler({
 			await fs.mkdir(outDir, { recursive: true })
 		}
 
-		let outFile = path.join(outDir, 'template.hbs')
+		let files: Array<[string, string]> = [
+			[path.join(outDir, 'template.hbs'), html],
+			[path.join(outDir, 'props.schema.json'), buildSchema(src, name)]
+		]
 
-		let templateSink = fs.writeFile(outFile, html)
+		await Promise.all(files.map(([file, content]) => {
+			return fs.writeFile(file, content)
+		}))
 
-		let program = TJS.getProgramFromFiles(
-			[path.join(src, 'template', name, `template.tsx`)],
-		 	COMPILER_OPTIONS,
-		 	path.join(src)
-		)
+		let translations = await getTranslations(tmp, name)
 
-		let schema = TJS.generateSchema(program, 'Props', {}, ['template.tsx'])
-		
-		let schemaSink = fs.writeFile(
-			path.join(outDir, 'props.schema.json'),
-			JSON.stringify(schema, null, 2)
-		)
+		if (translations.defaultLang) {
+			let translationOut = path.join(outDir, 'translations')
+			if (!existsSync(translationOut)) {
+				await fs.mkdir(translationOut, { recursive: true })
+			}
 
-		await Promise.all([templateSink, schemaSink])
+			await Promise.all(translations.translations.filter(Boolean).map(t => {
+				let file = path.join(translationOut, `${t.lang}.hbs`)
+				return fs.writeFile(file, JSON.stringify(t.translation, null, 2))
+			}))
+
+			await fs.writeFile(
+				path.join(translationOut, 'config.json'),
+				JSON.stringify({
+					defaultLang: translations.defaultLang,
+					languages: translations.translations.map(t => t.lang)
+				}, null, 2)
+			)
+
+			let translationSchema = buildTranslationSchema(src, name)
+			await fs.writeFile(
+				path.join(outDir, 'translation.schema.json'),
+				translationSchema,
+			)
+		}
+
 		return name
 	})
 
@@ -101,4 +120,38 @@ export default async function handler({
 			console.log(`  ${outDir}/${template}`)
 		})
 	})
+}
+
+function buildSchema(src: string, name: string) {
+	let program = TJS.getProgramFromFiles(
+		[path.join(src, 'template', name, `index.ts`)],
+	 	COMPILER_OPTIONS,
+	 	path.join(src)
+	)
+
+	let schema = TJS.generateSchema(program, 'Props', {}, ['index.ts'])
+	return JSON.stringify(schema, null, 2)
+}
+
+async function getTranslations(src: string, name: string) {
+	let translationFile = path.join(src, 'template', name, 'index.js')
+	let { DefaultTranslation = {}, Translations = [] } = require(translationFile)
+	return {
+		defaultLang: DefaultTranslation.lang,
+		translations: [
+			DefaultTranslation,
+			...Translations
+		]
+	} as { defaultLang?: string, translations: Array<{ lang: string, translation: unknown }> }
+}
+
+function buildTranslationSchema(src: string, name: string) {
+	let program = TJS.getProgramFromFiles(
+		[path.join(src, 'template', name, `index.ts`)],
+	 	COMPILER_OPTIONS,
+	 	path.join(src)
+	)
+
+	let schema = TJS.generateSchema(program, 'Translation', {}, ['index.ts'])
+	return JSON.stringify(schema, null, 2)
 }

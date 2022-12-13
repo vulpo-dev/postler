@@ -9,7 +9,7 @@ import { buildFiles } from '../utils/build'
 import { getFiles, getPreviewDirectory } from '../utils/files'
 
 import { onSrcChange, onDistChange } from './watch'
-import { createServeHandler, createRedirectHandler, createPreviewsHandler } from './preview'
+import { createServeHandler, createRedirectHandler, createPreviewsHandler, createTranslationHandler } from './preview'
 import { createUpdatesHandler } from './updates'
 import { createTemplateHandler, createTemplatesHandler } from './template'
 import { createSendEmailHandler } from './email'
@@ -55,6 +55,7 @@ export default async function handler({
 	server.route(createServeHandler(previewRoot))
 	server.route(createRedirectHandler(src))
 	server.route(createPreviewsHandler(tmp))
+	server.route(createTranslationHandler(tmp))
 
 	// Send updates when something in the dist folder changes
 	server.route(createUpdatesHandler(tmp))

@@ -7,6 +7,7 @@ export {
 	log,
 	cx,
 	fallback,
+	html,
 	type ConditionProps,
 	type EachProps,
 } from './helpers/helpers'
@@ -15,8 +16,8 @@ export {
 	getKey,
 	makeKey,
 	createProxyHandler,
-	useTranslations,
-	useProps,
+	createTranslations,
+	createProps,
 } from './hooks'
 
 export {

@@ -68,3 +68,19 @@ export function createPreviewsHandler(src: string): RouteOptions {
 		}
 	}
 }
+
+export function createTranslationHandler(src: string): RouteOptions {
+	return {
+		method: 'GET',
+		url: '/api/preview/translations',
+		handler: ({ query }) => {
+			try {
+				let { template = '' } = query as { template?: string }
+				let { Translations = [], DefaultTranslation = {} } = require(path.join(src, 'template', template, 'index.js'))
+				return { items: Translations, default: DefaultTranslation }
+			} catch(err) {
+				return { items: [] }
+			}
+		}
+	}
+}

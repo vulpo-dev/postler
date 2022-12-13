@@ -101,3 +101,7 @@ export function fallback(value: Condition, defaultValue: any) {
 		
 	return `{{#if ${cond}}}${value}{{else}}${defaultValue}{{/if}}`
 }
+
+export function html(value: ToString): string {
+	return `{${value}}`
+}

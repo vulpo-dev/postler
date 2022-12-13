@@ -1,5 +1,5 @@
 import { test } from '@japa/runner'
-import { getKey, makeKey, useProps } from './index'
+import { getKey, makeKey, createProps } from './index'
 
 test.group('Hooks', () => {
 	test('getKey', ({ expect }) => {
@@ -28,7 +28,7 @@ test.group('Hooks', () => {
 	})
 
 	test('useProps', ({ expect }) => {
-		let { name, bar, items, nested } = useProps<Props>()
+		let { name, bar, items, nested } = createProps<Props>()
 
 		expect(`${name}`).toEqual('{{props.name}}')
 		expect(`${bar}`).toEqual('{{props.bar}}')

@@ -10,7 +10,7 @@ import {
   MjmlImage,
   MjmlText,
 } from "@faire/mjml-react"
-import { Each, useProps } from 'postler'
+import { Each, createProps } from 'postler'
 
 export default {
   mjml: true,
@@ -23,7 +23,7 @@ export type Props = {
 }
 
 export let Template = () => {
-  let props = useProps<Props>()
+  let props = createProps<Props>()
 
   return (
     <Mjml>

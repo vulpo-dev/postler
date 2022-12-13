@@ -11,4 +11,9 @@ export {
 	type Template,
 } from './utils/template'
 
+export {
+	type GetTranslation,
+	type ToTranslations,
+} from './utils/types'
+
 export * from 'react-sst'

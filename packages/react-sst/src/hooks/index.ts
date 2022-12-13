@@ -82,11 +82,11 @@ export function createProxyHandler(level: Array<string | undefined>): ProxyHandl
 	} as ProxyHandler<any>
 }
 
-export function useProps<T>(): PropProxy<T> {
+export function createProps<T>(): PropProxy<T> {
 	return new Proxy({}, createProxyHandler(['props']))
 }
 
-export function useTranslations<T>(): PropProxy<T> {
+export function createTranslations<T>(): PropProxy<T> {
 	return new Proxy({}, createProxyHandler(['t']))
 }
 

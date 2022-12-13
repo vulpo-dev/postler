@@ -12,13 +12,15 @@ export type Config = {
 	mjml: boolean,
 }
 
+export let DefaultConfig = { mjml: false }
+
 export type Template = FunctionComponent<any>
 
 export function getTemplate(dist: string, template: string) {
 	let {
 		Template = NoOp,
-		default: Config = { mjml: false }
-	} = require(path.join(dist, 'template', template, 'template.js'))
+		default: Config = DefaultConfig
+	} = require(path.join(dist, 'template', template, 'index.js'))
 
 	return { Template, Config } as { Template: Template, Config: Config }
 }

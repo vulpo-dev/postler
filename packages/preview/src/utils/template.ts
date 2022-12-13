@@ -2,7 +2,7 @@ import { useQueryParams } from '@biotic-ui/std'
 import Handlebars from 'handlebars'
 import { useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useGetPreviewsQuery } from '~src/store/previews.slice'
+import { useGetPreviewsQuery, useGetTranslationsQuery } from '~src/store/previews.slice'
 import { useGetTemplateQuery } from '~src/store/template.slice'
 
 export function usePreviewProps(template: string) {
@@ -35,10 +35,15 @@ export function usePreviewProps(template: string) {
 
 export function useCompiledTemplate(template: string) {
 	let markup = useMarkup(template)
+	let { data: translations } = useGetTranslationsQuery(template)
 	let { props } = usePreviewProps(template) ?? {}
 	return useMemo(() => {
-		return compileTemplate(markup, props)
-	}, [markup, props])
+		console.log(translations)
+		let t = Handlebars.compile(JSON.stringify(translations?.default?.translation ?? {}))
+		let translated = t({ props })
+		console.log(translated)
+		return compileTemplate(markup, props, JSON.parse(translated))
+	}, [markup, props, translations])
 }
 
 export function useMarkup(template: string) {
@@ -49,7 +54,7 @@ export function useMarkup(template: string) {
 	return markup
 }
 
-export function compileTemplate(markup: string, props: unknown) {
+export function compileTemplate(markup: string, props: unknown, translation?: unknown) {
 	let t = Handlebars.compile(markup)
-	return t({ props } ?? {})
+	return t({ props, t: translation } ?? {})
 } 

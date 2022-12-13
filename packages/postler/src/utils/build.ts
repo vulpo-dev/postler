@@ -7,7 +7,9 @@ import { toRelativePath } from './path'
 
 export async function buildFiles(src: string, dist: string, files: Array<string>) {
 	for (let file of files) {
-		 await transpile(file, src, dist)
+		await transpile(file, src, dist).catch(err => {
+			console.error(err)
+		})
 	}
 }
 

@@ -22,8 +22,10 @@ export function onSrcChange(src: string, out: string) {
 			case 'update': {
 				let stat = await fs.lstat(name)
 				if (!stat.isDirectory()) {
-					process.nextTick(async () => {
-						await transpile(name, src, out)
+					process.nextTick(() => {
+						transpile(name, src, out).catch(err => {
+							console.error(err)
+						})
 					})
 				} else {
 					await fs.mkdir(name, { recursive: true })

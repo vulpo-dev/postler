@@ -1,4 +1,4 @@
-import { useProps, If, Else, Document } from 'postler'
+import { createProps, If, Else, Document } from 'postler'
 
 import { Button } from '../../component/button'
 import {
@@ -18,7 +18,7 @@ export type Props = {
 }
 
 export let Template = () => {
-	let props = useProps<Props>()
+	let props = createProps<Props>()
 
 	return (
 		<Document>
