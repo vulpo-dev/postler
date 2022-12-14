@@ -1,6 +1,6 @@
 
-export interface ToString {
-	toString(): string;
+export type ToString = {
+	toString: () => string,
 }
 
 export type PropProxy<T> = {

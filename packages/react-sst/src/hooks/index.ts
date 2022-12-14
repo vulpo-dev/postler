@@ -5,7 +5,7 @@ import { PropProxy } from '../types'
  * together using a dot (.) turning them into
  * a property access
  */
-export let getKey = (...args: Array<string | undefined>): string =>  {
+export let getKey = (...args: Array<string | undefined>): string => {
 	return args
 		.filter(str => str !== undefined)
 		.join('.')
@@ -30,7 +30,7 @@ export let makeKey: MakeKeyFn = (key: string) => {
  * storing the current path of the accessed object
  */
 export function createProxyHandler(level: Array<string | undefined>): ProxyHandler<any> {
-	return {
+	let handler: ProxyHandler<any> = {
 		get: (target, key) => {
 			/**
 			 * We use the 'toString' method inside of conditions.
@@ -44,12 +44,15 @@ export function createProxyHandler(level: Array<string | undefined>): ProxyHandl
 			 * Adds support for array indexing, the limitation here is that
 			 * instead of using the bracket syntax (array[index]), users will
 			 * have to use the `.at` method: array.at(index)
-			 * 
+			 *
 			 * https://handlebarsjs.com/guide/expressions.html#literal-segments
 			 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at
 		 	 */
 			if (key === 'at') {
 				return (index: number) => {
+					// we need to disable the linter, otherwise the proxy won't
+					// work if we don't wrap the string inside of new String()
+					// eslint-disable-next-line no-new-wrappers
 					let str = new String(getKey(...level, `[${index}]`))
 					let obj = new Proxy(str, createProxyHandler([...level, `[${index}]`]))
 					return obj
@@ -60,10 +63,9 @@ export function createProxyHandler(level: Array<string | undefined>): ProxyHandl
 				return true
 			}
 
-			if (target[key]) {
+			if (target[key] !== undefined) {
 				return target[key]
 			}
-
 
 			/**
              * React will call `toPrimitive` on the string, the
@@ -75,11 +77,16 @@ export function createProxyHandler(level: Array<string | undefined>): ProxyHandl
 			}
 
 			let _key = makeKey(key.toString())
+			// we need to disable the linter, otherwise the proxy won't
+			// work if we don't wrap the string inside of new String()
+			// eslint-disable-next-line no-new-wrappers
 			let str = new String(getKey(...level, _key))
 			let obj = new Proxy(str, createProxyHandler([...level, _key]))
 			return obj
 		},
-	} as ProxyHandler<any>
+	}
+
+	return handler
 }
 
 export function createProps<T>(): PropProxy<T> {

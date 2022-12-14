@@ -45,7 +45,7 @@ test.group('Hooks', () => {
 type Props = {
 	name: string,
 	bar: number,
-	items: Array<{ name: string, "fuu-bar": number }>,
+	items: Array<{ name: string, 'fuu-bar': number }>,
 	nested: Nested,
 }
 
@@ -53,5 +53,5 @@ export type Nested = {
 	fuu: string,
 	bax: {
 		aaaa: string,
-	}
+	},
 }
