@@ -75,7 +75,7 @@ let ListItem = styled.li`
 
 	a.active {
 		font-weight: bold;
-		background: var(--blue-1);
+		background: var(--color-accent);
 		border-radius: var(--size-5);
 	}
 `;

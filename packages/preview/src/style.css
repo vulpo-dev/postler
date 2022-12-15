@@ -7,8 +7,39 @@
 	--font-mono: monospace;
 	--font-copy: var(--font-sans);
 	--font-headline: var(--font-sans);
+
+	--border-color: var(--stone-9) !important;
+
+	--foreground: #fff !important;
+
+	--color-accent: var(--blue-1);
+	--color-active: var(--blue-0);
+	--preview-item-bg: var(--stone-0);
 }
 
 body {
 	background: var(--background);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: var(--gray-10) !important;
+		--foreground: var(--gray-9) !important;
+		--font-sans: sans-serif;
+		--font-mono: monospace;
+		--font-copy: var(--font-sans);
+		--font-headline: var(--font-sans);
+		--color-copy: #fff;
+		--border-color: var(--gray-12) !important;
+		--color-accent: var(--blue-12);
+		--color-active: var(--blue-11);
+		--preview-item-bg: var(--gray-8);
+
+		--input-color: #fff;
+		--input-bg: var(--gray-11);
+	}
+
+	body {
+		color: #fff;
+	}
 }

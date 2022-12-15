@@ -13,7 +13,7 @@ export const templatesApi = createApi({
 	baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
 	endpoints: (builder) => ({
 		getTemplates: builder.query<TemplatesState, void>({
-			query: () => `templates`,
+			query: () => "templates",
 		}),
 	}),
 });

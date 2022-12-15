@@ -9,7 +9,7 @@ import { useCurrentTemplate, useServerEvent } from "~src/utils";
 let sentenceCache = new Map<string, string>();
 let getSentence = (key: string): string => {
 	let entry = sentenceCache.get(key);
-	if (entry) {
+	if (entry !== undefined) {
 		return entry;
 	}
 
@@ -25,7 +25,8 @@ export let Previews = () => {
 	let [trigger] = previewsApi.endpoints.getPreviews.useLazyQuery();
 
 	useServerEvent("/api/updates", ({ data }) => {
-		if (data.path.endsWith(`${template}/preview.js`)) {
+		let isPreview = data.path.endsWith(`${template}/preview.js`);
+		if (isPreview) {
 			trigger(template);
 		}
 	});
@@ -55,19 +56,20 @@ export let Previews = () => {
 };
 
 let ListWrapper = styled.div`
-	border-right: 1px solid var(--stone-3);
+	border-right: 1px solid var(--border-color);
 	overflow: auto;
+	background: var(--foreground);
 `;
 
 let List = styled.ul`
 	list-style-type: none;
 	padding: 0;
-	border-top: 1px solid var(--stone-3);
+	border-top: 1px solid var(--border-color);
 `;
 
 let ListItem = styled.li`
 	height: var(--size-10);
-	border-bottom: 1px solid var(--stone-3);
+	border-bottom: 1px solid var(--border-color);
 	font-size: 14px;
 
 	a {
@@ -77,11 +79,11 @@ let ListItem = styled.li`
 		padding: var(--size-2) var(--size-5);
 		height: 100%;
 		color: var(--color-copy);
-		background: var(--stone-0);
+		background: var(--preview-item-bg);
 	}
 
 	a.active {
-		background: var(--blue-0);
+		background: var(--color-active);
 	}
 `;
 

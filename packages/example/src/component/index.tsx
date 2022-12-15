@@ -11,6 +11,10 @@ export let Body = styled.body`
 	-ms-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
 
+	@media (prefers-color-scheme: dark) {
+		background-color: #111;
+	}
+
 	table {
 		border-collapse: separate;
 		mso-table-lspace: 0pt;
@@ -69,12 +73,24 @@ export let Body = styled.body`
 		color: #3498db;
 		text-decoration: underline;
 	}
+
+	@media (prefers-color-scheme: dark) {
+		h1,
+		h2,
+		h3,
+		h4 {
+			color: #eee;
+		}
+	}
 `;
 
 export let StyledBody = styled.table`
-	background-color: #f6f6f6;
 	width: 100%;
 	border: 0;
+
+	@media (prefers-color-scheme: dark) {
+		background-color: #111;
+	}
 `;
 
 export let Img = styled.img`
@@ -106,6 +122,10 @@ export let Main = styled.table`
 	width: 100%;
 	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 	text-align: center;
+
+	@media (prefers-color-scheme: dark) {
+		background-color: #222;
+	}
 `;
 
 export let Wrapper = styled.td`

@@ -10,7 +10,7 @@ import { Select, Option } from "~/src/component/input";
 
 export let ContentHeader = () => {
 	let dispatch = useDispatch();
-	let viewport = useSelector((state: RootState) => state.preview.viewport);
+	let { viewport } = useSelector((state: RootState) => state.preview);
 
 	let isLoading = useSelector((state: RootState) => {
 		let pending = Object.values(state.templateApi.queries).filter(
@@ -31,16 +31,18 @@ export let ContentHeader = () => {
 			</TitleSection>
 
 			<LeftSection>
-				<div>
-					<Select
-						onChange={handleViewportChange}
-						value={viewport.width}
-					>
-						<Option value='100%'>Default</Option>
-						<Option value='390px'>Mobile</Option>
-						<Option value='768px'>Tablet</Option>
-					</Select>
-				</div>
+				<SelectWrapper>
+					<div>
+						<Select
+							onChange={handleViewportChange}
+							value={viewport.width}
+						>
+							<Option value='100%'>Default</Option>
+							<Option value='390px'>Mobile</Option>
+							<Option value='768px'>Tablet</Option>
+						</Select>
+					</div>
+				</SelectWrapper>
 
 				<LoadingWrapper>{isLoading && <Pulse />}</LoadingWrapper>
 			</LeftSection>
@@ -56,6 +58,7 @@ let StyledContentHeader = styled(TopBar.Header)`
 	border-top-right-radius: var(--size-3);
 	border: none;
 	padding: 0 var(--size-3);
+	background: var(--foreground);
 `;
 
 let TitleSection = styled.section`
@@ -76,4 +79,9 @@ let LeftSection = styled.div`
 let LoadingWrapper = styled.div`
 	width: var(--size-7);
 	flex-shrink: 0;
+`;
+
+let SelectWrapper = styled.div`
+	display: flex;
+	gap: var(--size-2);
 `;

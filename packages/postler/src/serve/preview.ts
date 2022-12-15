@@ -9,9 +9,8 @@ import { Preview } from "../preview";
 
 export async function serveFile(root: string, filePath: string) {
 	let _filePath = filePath === "" ? "index.html" : filePath;
-	let file = path.join(root, _filePath);
-	return await fs
-		.readFile(file)
+	let file = await fs
+		.readFile(path.join(root, _filePath))
 		.then((content) => ({
 			content,
 			type: send.mime.lookup(_filePath),
@@ -21,6 +20,7 @@ export async function serveFile(root: string, filePath: string) {
 			let content = await fs.readFile(indexHtml);
 			return { content, type: send.mime.lookup("index.html") };
 		});
+	return file;
 }
 
 export function createServeHandler(previewRoot: string): RouteOptions {
@@ -30,7 +30,7 @@ export function createServeHandler(previewRoot: string): RouteOptions {
 		handler: async (req, reply) => {
 			let { "*": filePath } = req.params as { "*": string };
 			let { type, content } = await serveFile(previewRoot, filePath);
-			await reply.header("Content-Type", type);
+			void reply.header("Content-Type", type);
 			return content;
 		},
 	};
@@ -43,7 +43,7 @@ export function createRedirectHandler(src: string): RouteOptions {
 		handler: async (_, reply) => {
 			let items = await getTemplates(src);
 			let template = items.at(0);
-			await reply.redirect(`/preview/${template?.name ?? ""}`);
+			void reply.redirect(`/preview/${template?.name ?? ""}`);
 		},
 	};
 }

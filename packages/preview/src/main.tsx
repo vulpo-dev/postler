@@ -9,12 +9,16 @@ import Bootstrap from "~/src/bootstrap";
 import { Store } from "~/src/store";
 import { Provider } from "react-redux";
 
-let root = createRoot(document.getElementById("root")!);
+let container = document.getElementById("root");
 
-root.render(
-	<BrowserRouter>
-		<Provider store={Store}>
-			<Bootstrap />
-		</Provider>
-	</BrowserRouter>
-);
+if (container) {
+	let root = createRoot(container);
+
+	root.render(
+		<BrowserRouter>
+			<Provider store={Store}>
+				<Bootstrap />
+			</Provider>
+		</BrowserRouter>
+	);
+}

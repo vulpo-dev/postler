@@ -23,22 +23,26 @@ type RenderViewProps = {
 };
 
 let RenderView = ({ template }: RenderViewProps) => {
-	let viewport = useSelector((state: RootState) => state.preview.viewport);
+	let { viewport } = useSelector((state: RootState) => state.preview);
 	let [iframe, setIframe] = useState<HTMLIFrameElement | null>(null);
 	let html = useCompiledTemplate(template);
 
 	useEffect(() => {
-		if (iframe && iframe.contentWindow) {
+		if (iframe?.contentWindow) {
 			let elm = iframe.contentWindow;
 			elm.document.open();
 			elm.document.write(html);
+			let htmlDoc = elm.document.querySelector("html");
+			if (htmlDoc !== null) {
+				htmlDoc.style.colorScheme = "light dark";
+			}
 		}
 	}, [iframe, html]);
 
 	let styles = {
 		width: viewport.width,
 		height: viewport.height,
-		border: viewport.width === "100%" ? "none" : "2px solid var(--gray-10)",
+		border: viewport.width === "100%" ? "none" : "2px solid var(--border-color)",
 	};
 
 	return (
@@ -46,7 +50,7 @@ let RenderView = ({ template }: RenderViewProps) => {
 			<IFrame
 				style={styles}
 				ref={setIframe}
-			></IFrame>
+			/>
 		</Wrapper>
 	);
 };
@@ -54,11 +58,14 @@ let RenderView = ({ template }: RenderViewProps) => {
 let IFrame = styled.iframe`
 	width: 100%;
 	height: 100%;
+	background: #fff;
+	color-scheme: light dark;
 `;
 
 let Wrapper = styled.div`
 	display: flex;
 	justify-content: center;
-	margin-left: var(--size-10);
-	margin-right: var(--size-3);
+	padding-left: var(--size-10);
+	padding-right: var(--size-3);
+	background: var(--foreground);
 `;

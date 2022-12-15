@@ -37,10 +37,8 @@ export function useCompiledTemplate(template: string) {
 	let { data: translations } = useGetTranslationsQuery(template);
 	let { props } = usePreviewProps(template) ?? {};
 	return useMemo(() => {
-		console.log(translations);
 		let t = Handlebars.compile(JSON.stringify(translations?.default?.translation ?? {}));
 		let translated = t({ props });
-		console.log(translated);
 		return compileTemplate(markup, props, JSON.parse(translated));
 	}, [markup, props, translations]);
 }
