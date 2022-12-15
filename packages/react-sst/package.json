@@ -6,12 +6,18 @@
   "module": "lib/module.js",
   "main": "lib/main.js",
   "types": "lib/types.d.ts",
+  "prettier": "@vulpo-dev/prettier-config",
+  "eslintConfig": {
+    "extends": "@vulpo-dev"
+  },
   "scripts": {
     "watch": "parcel watch",
     "build": "parcel build",
     "test": "ts-node ./bin/test.ts",
     "check": "tsc --noEmit",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "fmt": "prettier ./src --write",
+    "lint": "eslint ./src"
   },
   "keywords": [],
   "author": "",

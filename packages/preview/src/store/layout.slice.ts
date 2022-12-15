@@ -1,30 +1,27 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 type LayoutState = {
-  sidebar: {
-    open: boolean,
-  },
-}
-
+	sidebar: {
+		open: boolean;
+	};
+};
 
 let initialState: LayoutState = {
-  sidebar: {
-    open: window.matchMedia('(min-width: 1400px)').matches
-  },
-}
+	sidebar: {
+		open: window.matchMedia("(min-width: 1400px)").matches,
+	},
+};
 
 export let layoutSlice = createSlice({
-  name: 'preview',
-  initialState,
-  reducers: {
-    toggleSidebar(state) {
-      state.sidebar.open = !state.sidebar.open
-    },
-  },
-})
+	name: "preview",
+	initialState,
+	reducers: {
+		toggleSidebar(state) {
+			state.sidebar.open = !state.sidebar.open;
+		},
+	},
+});
 
-export let {
-  toggleSidebar,
-} = layoutSlice.actions
+export let { toggleSidebar } = layoutSlice.actions;
 
-export default layoutSlice.reducer
+export default layoutSlice.reducer;

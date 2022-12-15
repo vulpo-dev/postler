@@ -1,4 +1,5 @@
-require('dotenv').config({ path: '../example/.env' })
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require("dotenv").config({ path: "../example/.env" });
 
 export default {
 	smtp: {
@@ -12,5 +13,5 @@ export default {
 	},
 	email: {
 		from: process.env.FROM_EMAIL,
-	}
-}
+	},
+};

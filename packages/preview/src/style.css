@@ -2,7 +2,7 @@
 @import "npm:@biotic-ui/leptons/style/text.css";
 
 :root {
-	--background: var(--stone-1)!important;
+	--background: var(--stone-1) !important;
 	--font-sans: sans-serif;
 	--font-mono: monospace;
 	--font-copy: var(--font-sans);

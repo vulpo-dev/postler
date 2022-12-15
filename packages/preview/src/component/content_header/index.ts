@@ -1,1 +1,1 @@
-export { ContentHeader } from './content_header'
+export { ContentHeader } from "./content_header";

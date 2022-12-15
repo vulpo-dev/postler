@@ -1,4 +1,1 @@
-
-export {
-	type TemplateResponse
-} from './store/template.slice'
+export { type TemplateResponse } from "./store/template.slice";

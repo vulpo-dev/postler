@@ -1,48 +1,47 @@
-import styled from "@emotion/styled"
-import { Each, createTranslations, Document, fallback, html } from 'postler'
-import { Button } from '../../component/button'
-import { props, Item } from './types'
-import { Translation } from './translations'
+import styled from "@emotion/styled";
+import { Each, createTranslations, Document, fallback, html } from "postler";
+import { Button } from "../../component/button";
+import { props, Item } from "./types";
+import { Translation } from "./translations";
 
-let t = createTranslations<Translation>()
+let t = createTranslations<Translation>();
 
 export let Template = () => {
 	return (
-		<Document lang="fuu">
-		  <Body>
-		    <Title>{ t.headline }</Title>
-		    <p>Name: {props.name}</p>
-		    <p>Email: {props.email}</p>
+		<Document lang='fuu'>
+			<Body>
+				<Title>{t.headline}</Title>
+				<p>Name: {props.name}</p>
+				<p>Email: {props.email}</p>
 
-		    <hr />
+				<hr />
 
-		    <p>{ t.text }</p>
-		    <p>{ html(t.expire) }</p>
-		    
-		    <hr />
+				<p>{t.text}</p>
+				<p>{html(t.expire)}</p>
 
-		    <p>Fallback: {fallback(true, "fuu")}</p>
+				<hr />
 
-		    <Button primary>
-		    	{ t.label }
-		    </Button>
+				<p>Fallback: {fallback(true, "fuu")}</p>
 
-		    <ul>
-			    <Each
-			    	items={props.items}
-			    	render={(item: Item) => <li>{ item.title }</li>} />
-		    </ul>
-		  </Body>
+				<Button primary>{t.label}</Button>
+
+				<ul>
+					<Each
+						items={props.items}
+						render={(item: Item) => <li>{item.title}</li>}
+					/>
+				</ul>
+			</Body>
 		</Document>
-	)
-}
+	);
+};
 
 let Title = styled.h1`
 	font-family: sans-serif;
-`
+`;
 
 let Body = styled.body`
 	.bold {
 		font-weight: bold;
 	}
-`
+`;

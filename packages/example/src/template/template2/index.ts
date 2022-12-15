@@ -1,2 +1,1 @@
-
-export { Template, type Props } from './template'
+export { Template, type Props } from "./template";

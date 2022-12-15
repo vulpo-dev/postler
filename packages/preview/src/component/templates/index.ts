@@ -1,1 +1,1 @@
-export { Templates } from './templates'
+export { Templates } from "./templates";

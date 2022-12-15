@@ -1,22 +1,20 @@
-import 'open-props/open-props.min.css'
-import '@biotic-ui/leptons/style/base.css'
-import './style.css'
+import "open-props/open-props.min.css";
+import "@biotic-ui/leptons/style/base.css";
+import "./style.css";
 
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 
-import Bootstrap from '~/src/bootstrap'
-import { Store } from '~/src/store'
-import { Provider } from 'react-redux'
+import Bootstrap from "~/src/bootstrap";
+import { Store } from "~/src/store";
+import { Provider } from "react-redux";
 
-let root = createRoot(
-  document.getElementById('root')!
-)
+let root = createRoot(document.getElementById("root")!);
 
 root.render(
-  <BrowserRouter>
-    <Provider store={Store}>
-      <Bootstrap />
-    </Provider>
-  </BrowserRouter>
-)
+	<BrowserRouter>
+		<Provider store={Store}>
+			<Bootstrap />
+		</Provider>
+	</BrowserRouter>
+);

@@ -10,19 +10,10 @@ export {
 	html,
 	type ConditionProps,
 	type EachProps,
-} from './helpers/helpers'
+} from "./helpers/helpers";
 
-export {
-	getKey,
-	makeKey,
-	createProxyHandler,
-	createTranslations,
-	createProps,
-} from './hooks'
+export { getKey, makeKey, createProxyHandler, createTranslations, createProps } from "./hooks";
 
-export {
-	type PropProxy,
-	type ToString,
-} from './types'
+export { type PropProxy, type ToString } from "./types";
 
-export { Document } from './components'
+export { Document } from "./components";

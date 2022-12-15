@@ -1,1 +1,1 @@
-export { Previews } from './previews'
+export { Previews } from "./previews";

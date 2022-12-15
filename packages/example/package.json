@@ -5,11 +5,17 @@
   "scripts": {
     "start": "postler serve",
     "build": "postler build",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+    "fmt": "prettier ./src --write",
+    "lint": "eslint ./src"
   },
   "keywords": [],
   "author": "",
   "license": "MPL-2.0",
+  "prettier": "@vulpo-dev/prettier-config",
+  "eslintConfig": {
+    "extends": "@vulpo-dev"
+  },
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",

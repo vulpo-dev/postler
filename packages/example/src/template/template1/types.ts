@@ -1,15 +1,15 @@
-import { createProps } from 'postler'
+import { createProps } from "postler";
 
 export type Props = {
-	name: string,
-	propject: string,
-	email: string,
-	expire_in: number,
-	items: Array<Item>
-}
+	name: string;
+	propject: string;
+	email: string;
+	expire_in: number;
+	items: Array<Item>;
+};
 
 export type Item = {
-	title: string
-}
+	title: string;
+};
 
-export let props = createProps<Props>()
+export let props = createProps<Props>();

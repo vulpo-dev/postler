@@ -1,72 +1,78 @@
-import * as yargs from 'yargs'
-import { ArgumentsCamelCase } from 'yargs'
-import serve, { ServeArgs } from './serve'
-import build, { BuildArgs } from './build'
+import * as yargs from "yargs";
+import { ArgumentsCamelCase } from "yargs";
+import serve, { ServeArgs } from "./serve";
+import build, { BuildArgs } from "./build";
 
 export function runCli() {
 	yargs
-		.scriptName('postler')
+		.scriptName("postler")
 		.command({
-			command: 'serve',
-			describe: 'start the development server',
+			command: "serve",
+			describe: "start the development server",
 			builder: {
 				port: {
-					describe: 'Optional port to run the server',
+					describe: "Optional port to run the server",
 					demandOption: false,
-					type: 'number',
+					type: "number",
 					default: 47150,
 				},
 				workingDirectory: {
-					alias: 'src',
-					describe: 'Templates directory',
+					alias: "src",
+					describe: "Templates directory",
 					demandOption: false,
-					type: 'string', 
+					type: "string",
 				},
 				tmpDir: {
-					describe: 'Temporary build directory',
+					describe: "Temporary build directory",
 					demandOption: false,
-					type: 'string', 
-				}
+					type: "string",
+				},
 			},
 			handler(argv: ArgumentsCamelCase<ServeArgs>) {
 				serve({
 					workingDirectory: argv.workingDirectory,
 					port: argv.port,
 					tmpDir: argv.tmpDir,
-				})
-			}
+				}).catch((err) => {
+					console.error("Something went wrong", err);
+					process.exit(1);
+				});
+			},
 		})
 		.command({
-			command: 'build',
-			describe: 'build templates',
+			command: "build",
+			describe: "build templates",
 			builder: {
 				workingDirectory: {
-					alias: 'src',
-					describe: 'Templates directory',
+					alias: "src",
+					describe: "Templates directory",
 					demandOption: false,
-					type: 'string', 
+					type: "string",
 				},
 				tmpDir: {
-					describe: 'Temporary build directory',
+					describe: "Temporary build directory",
 					demandOption: false,
-					type: 'string', 
+					type: "string",
 				},
 				outDir: {
-					alias: 'out',
-					describe: 'Output directory',
+					alias: "out",
+					describe: "Output directory",
 					demandOption: false,
-					type: 'string',
-				}
+					type: "string",
+				},
 			},
 			handler(argv: ArgumentsCamelCase<BuildArgs>) {
 				build({
 					workingDirectory: argv.workingDirectory,
 					outDir: argv.outDir,
 					tmpDir: argv.tmpDir,
-				})
-			}
+				}).catch((err) => {
+					console.error("Something went wrong", err);
+					process.exit(1);
+				});
+			},
 		})
-		.help()
+		.help();
 
-	yargs.parse()
+	return yargs.parse();
 }

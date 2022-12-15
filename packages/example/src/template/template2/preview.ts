@@ -1,20 +1,20 @@
-import { faker } from '@faker-js/faker'
+import { faker } from "@faker-js/faker";
 
-import { Previews, Item } from 'postler'
-import { Props } from './template'
+import { Previews, Item } from "postler";
+import { Props } from "./template";
 
 export let Data: Previews<Props> = [
-	Item('Fullname', {
+	Item("Fullname", {
 		title: faker.name.fullName(),
 		primary: true,
 	}),
-	Item('really long', {
+	Item("really long", {
 		title: faker.lorem.paragraph(),
 		primary: true,
 	}),
-	Item('Email', {
+	Item("Email", {
 		title: faker.internet.email(),
 		primary: true,
-	}),	
-	Item('undefined title & secondary button', {}),	
-]
+	}),
+	Item("undefined title & secondary button", {}),
+];

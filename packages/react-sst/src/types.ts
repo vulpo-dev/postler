@@ -1,8 +1,7 @@
-
 export type ToString = {
-	toString: () => string,
-}
+	toString: () => string;
+};
 
 export type PropProxy<T> = {
 	[Property in keyof T]: T[Property];
-}
+};

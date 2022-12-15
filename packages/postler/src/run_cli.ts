@@ -1,2 +1,2 @@
-import { runCli } from './cli'
-runCli()
+import { runCli } from "./cli";
+void runCli();

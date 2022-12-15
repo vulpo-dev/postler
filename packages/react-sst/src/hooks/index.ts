@@ -1,4 +1,4 @@
-import { PropProxy } from '../types'
+import { PropProxy } from "../types";
 
 /**
  * getKey gets an array of strings and joins them
@@ -6,24 +6,22 @@ import { PropProxy } from '../types'
  * a property access
  */
 export let getKey = (...args: Array<string | undefined>): string => {
-	return args
-		.filter(str => str !== undefined)
-		.join('.')
-}
+	return args.filter((str) => str !== undefined).join(".");
+};
 
-type MakeKeyFn = (key: string) => string
+type MakeKeyFn = (key: string) => string;
 
 /**
  * makeKey accepts a string and returns a handlebars
  * compatible key
  */
 export let makeKey: MakeKeyFn = (key: string) => {
-	if (key.includes('-')) {
-		return `[${key}]`
+	if (key.includes("-")) {
+		return `[${key}]`;
 	}
 
-	return key
-}
+	return key;
+};
 
 /**
  * createProxyHandler returns getter proxy, @params level is an array
@@ -36,8 +34,8 @@ export function createProxyHandler(level: Array<string | undefined>): ProxyHandl
 			 * We use the 'toString' method inside of conditions.
 			 * to string returns the raw key.
 			 */
-			if (key === 'toString') {
-				return () => target.toString()
+			if (key === "toString") {
+				return () => target.toString();
 			}
 
 			/**
@@ -47,64 +45,64 @@ export function createProxyHandler(level: Array<string | undefined>): ProxyHandl
 			 *
 			 * https://handlebarsjs.com/guide/expressions.html#literal-segments
 			 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at
-		 	 */
-			if (key === 'at') {
+			 */
+			if (key === "at") {
 				return (index: number) => {
 					// we need to disable the linter, otherwise the proxy won't
 					// work if we don't wrap the string inside of new String()
 					// eslint-disable-next-line no-new-wrappers
-					let str = new String(getKey(...level, `[${index}]`))
-					let obj = new Proxy(str, createProxyHandler([...level, `[${index}]`]))
-					return obj
-				}
+					let str = new String(getKey(...level, `[${index}]`));
+					let obj = new Proxy(str, createProxyHandler([...level, `[${index}]`]));
+					return obj;
+				};
 			}
 
-			if (key === 'isProp') {
-				return true
+			if (key === "isProp") {
+				return true;
 			}
 
 			if (target[key] !== undefined) {
-				return target[key]
+				return target[key];
 			}
 
 			/**
-             * React will call `toPrimitive` on the string, the
-             * primitive returned is the key, wrapped in curly braces.
-             * e.g: when key = name then primitive = {{name}}
+			 * React will call `toPrimitive` on the string, the
+			 * primitive returned is the key, wrapped in curly braces.
+			 * e.g: when key = name then primitive = {{name}}
 			 */
 			if (key === Symbol.toPrimitive) {
-				return () => `{{${target?.toString() ?? ''}}}`
+				return () => `{{${target?.toString() ?? ""}}}`;
 			}
 
-			let _key = makeKey(key.toString())
+			let _key = makeKey(key.toString());
 			// we need to disable the linter, otherwise the proxy won't
 			// work if we don't wrap the string inside of new String()
 			// eslint-disable-next-line no-new-wrappers
-			let str = new String(getKey(...level, _key))
-			let obj = new Proxy(str, createProxyHandler([...level, _key]))
-			return obj
+			let str = new String(getKey(...level, _key));
+			let obj = new Proxy(str, createProxyHandler([...level, _key]));
+			return obj;
 		},
-	}
+	};
 
-	return handler
+	return handler;
 }
 
 export function createProps<T>(): PropProxy<T> {
-	return new Proxy({}, createProxyHandler(['props']))
+	return new Proxy({}, createProxyHandler(["props"]));
 }
 
 export function createTranslations<T>(): PropProxy<T> {
-	return new Proxy({}, createProxyHandler(['t']))
+	return new Proxy({}, createProxyHandler(["t"]));
 }
 
 export function isProp(value: any): boolean {
-	if (typeof value === 'string') {
-		return hasProp(value) ? value.isProp : false
+	if (typeof value === "string") {
+		return hasProp(value) ? value.isProp : false;
 	}
 
-	return false
+	return false;
 }
 
 function hasProp(value: any): value is { isProp: boolean } {
-	return value.isProp !== undefined
+	return value.isProp !== undefined;
 }

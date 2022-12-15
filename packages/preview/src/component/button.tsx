@@ -1,5 +1,4 @@
-
-import '@biotic-ui/button/style.css'
+import "@biotic-ui/button/style.css";
 
 export {
 	Button,
@@ -9,4 +8,4 @@ export {
 	LinkButton,
 	OutlineButton,
 	type Props as ButtonProps,
-} from '@biotic-ui/button'
+} from "@biotic-ui/button";

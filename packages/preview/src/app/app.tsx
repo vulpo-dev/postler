@@ -1,22 +1,22 @@
-import { List as ListIcon } from 'phosphor-react'
-import styled from '@emotion/styled'
+import { List as ListIcon } from "phosphor-react";
+import styled from "@emotion/styled";
 
-import { SidebarLayout, Aside, Main, TopBar } from '~/src/component/layout'
-import { Templates } from '~/src/component/templates'
-import { Previews } from '~/src/component/previews'
-import { Preview } from '~/src/component/preview'
-import { ContentHeader } from '~/src/component/content_header'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '~/src/store'
-import { IconButton } from '~/src/component/button'
-import { toggleSidebar } from '~/src/store/layout.slice'
-import { SendEmail } from '~/src/component/send_email'
+import { SidebarLayout, Aside, Main, TopBar } from "~/src/component/layout";
+import { Templates } from "~/src/component/templates";
+import { Previews } from "~/src/component/previews";
+import { Preview } from "~/src/component/preview";
+import { ContentHeader } from "~/src/component/content_header";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "~/src/store";
+import { IconButton } from "~/src/component/button";
+import { toggleSidebar } from "~/src/store/layout.slice";
+import { SendEmail } from "~/src/component/send_email";
 
-let DRAWER_BREAKPOINT = '(max-width: 400px)'
+let DRAWER_BREAKPOINT = "(max-width: 400px)";
 
 export let App = () => {
-	let dispatch = useDispatch()
-	let isOpen = useSelector((state: RootState) => state.layout.sidebar.open)
+	let dispatch = useDispatch();
+	let isOpen = useSelector((state: RootState) => state.layout.sidebar.open);
 
 	return (
 		<StyledContainer>
@@ -42,7 +42,7 @@ export let App = () => {
 						<AsideContent>
 							<Templates />
 						</AsideContent>
-					</Aside>			
+					</Aside>
 					<Main>
 						<MainContent>
 							<ContentContainer>
@@ -57,19 +57,19 @@ export let App = () => {
 				</SidebarLayout>
 			</TopBar.Content>
 		</StyledContainer>
-	)
-}
+	);
+};
 
 let AsideContent = styled.div`
 	background: var(--background);
 	height: 100%;
 	padding: 0 var(--size-3);
 	padding-right: 0;
-`
+`;
 let MainContent = styled.div`
 	height: 100%;
 	padding: 0 var(--size-3);
-`
+`;
 
 let StyledContainer = styled(TopBar.Container)`
 	grid-template-rows: var(--size-9) auto;
@@ -77,7 +77,7 @@ let StyledContainer = styled(TopBar.Container)`
 	@media screen ${DRAWER_BREAKPOINT} {
 		grid-template-rows: var(--size-8) auto;
 	}
-`
+`;
 
 let StyledHeader = styled(TopBar.Header)`
 	background: var(--background);
@@ -86,24 +86,24 @@ let StyledHeader = styled(TopBar.Header)`
 	padding-right: var(--size-3);
 	display: flex;
 	justify-content: space-between;
-`
+`;
 
 let HeaderSection = styled.section`
 	display: flex;
 	align-items: center;
 	gap: var(--size-3);
-`
+`;
 
 let Title = styled.h4`
 	margin: 0;
-`
+`;
 
 let ContentContainer = styled(TopBar.Container)`
 	grid-template-rows: var(--size-8) auto;
-`
+`;
 
 let Content = styled(TopBar.Content)`
 	background: #fff;
 	display: grid;
 	grid-template-columns: var(--size-14) auto;
-`
+`;

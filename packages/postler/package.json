@@ -9,6 +9,10 @@
   "bin": {
     "postler": "./index.js"
   },
+  "prettier": "@vulpo-dev/prettier-config",
+  "eslintConfig": {
+    "extends": "@vulpo-dev"
+  },
   "scripts": {
     "dev": "nodemon ./src/run_cli.ts serve --src ../example",
     "dev:build": "ts-node ./src/run_cli.ts build --src ../example",
@@ -16,7 +20,9 @@
     "build": "parcel build",
     "test": "ts-node ./bin/test.ts",
     "check": "tsc --noEmit",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "fmt": "prettier ./src --write",
+    "lint": "eslint ./src"
   },
   "keywords": [],
   "author": "",
