@@ -14,7 +14,7 @@ export let ContentHeader = () => {
 
 	let isLoading = useSelector((state: RootState) => {
 		let pending = Object.values(state.templateApi.queries).filter(
-			(entry) => entry?.status === "pending"
+			(entry) => entry?.status === "pending",
 		).length;
 
 		return pending > 0;
@@ -33,10 +33,7 @@ export let ContentHeader = () => {
 			<LeftSection>
 				<SelectWrapper>
 					<div>
-						<Select
-							onChange={handleViewportChange}
-							value={viewport.width}
-						>
+						<Select onChange={handleViewportChange} value={viewport.width}>
 							<Option value='100%'>Default</Option>
 							<Option value='390px'>Mobile</Option>
 							<Option value='768px'>Tablet</Option>

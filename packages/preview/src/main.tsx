@@ -19,6 +19,6 @@ if (container) {
 			<Provider store={Store}>
 				<Bootstrap />
 			</Provider>
-		</BrowserRouter>
+		</BrowserRouter>,
 	);
 }

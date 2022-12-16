@@ -3,7 +3,11 @@ import { FormEvent, useState } from "react";
 import { Button } from "~/src/component/button";
 import { Input } from "~/src/component/input";
 import { useCurrentTemplate, usePost } from "~src/utils";
-import { compileTemplate, useMarkup, usePreviewProps } from "~src/utils/template";
+import {
+	compileTemplate,
+	useMarkup,
+	usePreviewProps,
+} from "~src/utils/template";
 
 export let SendEmail = () => {
 	let template = useCurrentTemplate();

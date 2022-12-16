@@ -7,8 +7,8 @@ test.group("Helpers", () => {
 	test("If", ({ expect }) => {
 		let markup = renderToStaticMarkup(
 			<If condition={"fuuu"}>
-				<div></div>
-			</If>
+				<div />
+			</If>,
 		);
 
 		expect(markup).toEqual("{{#if fuuu}}<div></div>{{/if}}");
@@ -17,11 +17,11 @@ test.group("Helpers", () => {
 	test("If/Else", ({ expect }) => {
 		let markup = renderToStaticMarkup(
 			<If condition={"fuuu"}>
-				<div></div>
+				<div />
 				<Else>
-					<p></p>
+					<p />
 				</Else>
-			</If>
+			</If>,
 		);
 
 		expect(markup).toEqual("{{#if fuuu}}<div></div>{{else}}<p></p>{{/if}}");
@@ -30,8 +30,8 @@ test.group("Helpers", () => {
 	test("Unless", ({ expect }) => {
 		let markup = renderToStaticMarkup(
 			<Unless condition={"fuuu"}>
-				<div></div>
-			</Unless>
+				<div />
+			</Unless>,
 		);
 
 		expect(markup).toEqual("{{#unless fuuu}}<div></div>{{/unless}}");
@@ -42,12 +42,7 @@ test.group("Helpers", () => {
 			return <div>{name}</div>;
 		};
 
-		let markup = renderToStaticMarkup(
-			<Each
-				items={"items"}
-				render={Item}
-			/>
-		);
+		let markup = renderToStaticMarkup(<Each items={"items"} render={Item} />);
 
 		expect(markup).toEqual("{{#each items}}<div>{{this.name}}</div>{{/each}}");
 	});

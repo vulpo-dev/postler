@@ -12,7 +12,9 @@ export let Preview = () => {
 
 	useServerEvent("/api/updates", () => {
 		Store.dispatch(templateApi.util.resetApiState());
-		Store.dispatch(templateApi.util.prefetch("getTemplate", template, { force: true }));
+		Store.dispatch(
+			templateApi.util.prefetch("getTemplate", template, { force: true }),
+		);
 	});
 
 	return <RenderView template={template} />;
@@ -42,15 +44,13 @@ let RenderView = ({ template }: RenderViewProps) => {
 	let styles = {
 		width: viewport.width,
 		height: viewport.height,
-		border: viewport.width === "100%" ? "none" : "2px solid var(--border-color)",
+		border:
+			viewport.width === "100%" ? "none" : "2px solid var(--border-color)",
 	};
 
 	return (
 		<Wrapper>
-			<IFrame
-				style={styles}
-				ref={setIframe}
-			/>
+			<IFrame style={styles} ref={setIframe} />
 		</Wrapper>
 	);
 };

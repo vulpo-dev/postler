@@ -23,7 +23,7 @@ export function useServerEvent(url: string, fn: CB<ServerEvent>) {
 			let urlListeners = listeners.get(url) ?? [];
 			listeners.set(
 				url,
-				urlListeners.filter((entry) => entry.id !== id.current)
+				urlListeners.filter((entry) => entry.id !== id.current),
 			);
 		};
 	});
@@ -62,7 +62,10 @@ export function uuid(): string {
 	// @ts-ignore
 	// eslint-disable-next-line @typescript-eslint/restrict-plus-operands
 	return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
-		(c ^ (self.crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)
+		(
+			c ^
+			(self.crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+		).toString(16),
 	);
 }
 
@@ -83,7 +86,10 @@ type PostAction<Return> =
 	| { type: "loaded"; payload: Return }
 	| { type: "error"; payload: unknown };
 
-function postReducer<R>(state: PostState<R>, action: PostAction<R>): PostState<R> {
+function postReducer<R>(
+	state: PostState<R>,
+	action: PostAction<R>,
+): PostState<R> {
 	switch (action.type) {
 		case "trigger": {
 			return { state: "loading" };
@@ -99,7 +105,10 @@ function postReducer<R>(state: PostState<R>, action: PostAction<R>): PostState<R
 	}
 }
 
-type UsePost<Payload, Return> = [PostState<Return>, (p: Payload) => Promise<void>];
+type UsePost<Payload, Return> = [
+	PostState<Return>,
+	(p: Payload) => Promise<void>,
+];
 
 export function usePost<P, R = unknown>(url: string): UsePost<P, R> {
 	let [state, dispatch] = useReducer(postReducer, { state: "idle" });
@@ -115,7 +124,7 @@ export function usePost<P, R = unknown>(url: string): UsePost<P, R> {
 				dispatch({ type: "error", payload: err });
 			}
 		},
-		[url]
+		[url],
 	);
 
 	return [state as PostState<R>, trigger];

@@ -32,7 +32,9 @@ export default async function handler({
 	port = 47150,
 	tmpDir = TMP_DIR,
 }: ServeArgs) {
-	let cwd = path.isAbsolute(workingDirectory) ? workingDirectory : path.resolve(workingDirectory);
+	let cwd = path.isAbsolute(workingDirectory)
+		? workingDirectory
+		: path.resolve(workingDirectory);
 
 	let src = path.join(cwd, "src");
 	let tmp = path.join(cwd, tmpDir);

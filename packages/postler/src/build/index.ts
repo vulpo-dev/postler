@@ -35,7 +35,9 @@ export default async function handler({
 	outDir = "build",
 	tmpDir = ".postler",
 }: BuildArgs) {
-	let cwd = path.isAbsolute(workingDirectory) ? workingDirectory : path.resolve(workingDirectory);
+	let cwd = path.isAbsolute(workingDirectory)
+		? workingDirectory
+		: path.resolve(workingDirectory);
 	let src = path.join(cwd, "src");
 	let tmp = path.join(cwd, tmpDir);
 	let out = path.isAbsolute(outDir) ? outDir : path.join(cwd, outDir);
@@ -79,7 +81,7 @@ export default async function handler({
 		await Promise.all(
 			files.map(async ([file, content]) => {
 				return await fs.writeFile(file, content);
-			})
+			}),
 		);
 
 		let translations = await getTranslations(tmp, name);
@@ -94,7 +96,7 @@ export default async function handler({
 				translations.translations.filter(Boolean).map((t) => {
 					let file = path.join(translationOut, `${t.lang}.hbs`);
 					return fs.writeFile(file, JSON.stringify(t.translation, null, 2));
-				})
+				}),
 			);
 
 			await fs.writeFile(
@@ -105,12 +107,15 @@ export default async function handler({
 						languages: translations.translations.map((t) => t.lang),
 					},
 					null,
-					2
-				)
+					2,
+				),
 			);
 
 			let translationSchema = buildTranslationSchema(src, name);
-			await fs.writeFile(path.join(outDir, "translation.schema.json"), translationSchema);
+			await fs.writeFile(
+				path.join(outDir, "translation.schema.json"),
+				translationSchema,
+			);
 		}
 
 		return name;
@@ -127,7 +132,7 @@ function buildSchema(src: string, name: string) {
 	let program = TJS.getProgramFromFiles(
 		[path.join(src, "template", name, "index.ts")],
 		COMPILER_OPTIONS,
-		path.join(src)
+		path.join(src),
 	);
 
 	let schema = TJS.generateSchema(program, "Props", {}, ["index.ts"]);
@@ -139,7 +144,10 @@ type TranslationConfig = {
 	translations: Array<{ lang: string; translation: unknown }>;
 };
 
-async function getTranslations(src: string, name: string): Promise<TranslationConfig> {
+async function getTranslations(
+	src: string,
+	name: string,
+): Promise<TranslationConfig> {
 	let translationFile = path.join(src, "template", name, "index.js");
 	// eslint-disable-next-line @typescript-eslint/no-var-requires
 	let { DefaultTranslation = {}, Translations = [] } = require(translationFile);
@@ -153,7 +161,7 @@ function buildTranslationSchema(src: string, name: string) {
 	let program = TJS.getProgramFromFiles(
 		[path.join(src, "template", name, "index.ts")],
 		COMPILER_OPTIONS,
-		path.join(src)
+		path.join(src),
 	);
 
 	let schema = TJS.generateSchema(program, "Translation", {}, ["index.ts"]);

@@ -27,7 +27,11 @@ export let makeKey: MakeKeyFn = (key: string) => {
  * createProxyHandler returns getter proxy, @params level is an array
  * storing the current path of the accessed object
  */
-export function createProxyHandler(level: Array<string | undefined>): ProxyHandler<any> {
+export function createProxyHandler(
+	level: Array<string | undefined>,
+	// rome-ignore lint/suspicious/noExplicitAny: not sure how to type the proxy magic
+): ProxyHandler<any> {
+	// rome-ignore lint/suspicious/noExplicitAny: not sure how to type the proxy magic
 	let handler: ProxyHandler<any> = {
 		get: (target, key) => {
 			/**
@@ -52,7 +56,10 @@ export function createProxyHandler(level: Array<string | undefined>): ProxyHandl
 					// work if we don't wrap the string inside of new String()
 					// eslint-disable-next-line no-new-wrappers
 					let str = new String(getKey(...level, `[${index}]`));
-					let obj = new Proxy(str, createProxyHandler([...level, `[${index}]`]));
+					let obj = new Proxy(
+						str,
+						createProxyHandler([...level, `[${index}]`]),
+					);
 					return obj;
 				};
 			}
@@ -95,7 +102,7 @@ export function createTranslations<T>(): PropProxy<T> {
 	return new Proxy({}, createProxyHandler(["t"]));
 }
 
-export function isProp(value: any): boolean {
+export function isProp(value: unknown): boolean {
 	if (typeof value === "string") {
 		return hasProp(value) ? value.isProp : false;
 	}
@@ -103,6 +110,6 @@ export function isProp(value: any): boolean {
 	return false;
 }
 
-function hasProp(value: any): value is { isProp: boolean } {
-	return value.isProp !== undefined;
+function hasProp(value: unknown): value is { isProp: boolean } {
+	return (value as { isProp?: boolean }).isProp !== undefined;
 }

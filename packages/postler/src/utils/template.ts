@@ -14,7 +14,7 @@ export type Config = {
 
 export let DefaultConfig = { mjml: false };
 
-export type Template = FunctionComponent<any>;
+export type Template = FunctionComponent<unknown>;
 
 export type TemplateConfig = {
 	Template: Template;
@@ -27,7 +27,7 @@ export function getTemplate(dist: string, template: string): TemplateConfig {
 		dist,
 		"template",
 		template,
-		"index.js"
+		"index.js",
 	));
 
 	return { Template, Config };
@@ -35,10 +35,11 @@ export function getTemplate(dist: string, template: string): TemplateConfig {
 
 export function buildTemplate(template: Template, config: Config): string {
 	let cache = createCache({ key: "template" });
-	let { extractCriticalToChunks, constructStyleTagsFromChunks } = createEmotionServer(cache);
+	let { extractCriticalToChunks, constructStyleTagsFromChunks } =
+		createEmotionServer(cache);
 
 	let html = renderToStaticMarkup(
-		createElement(CacheProvider, { value: cache }, createElement(template))
+		createElement(CacheProvider, { value: cache }, createElement(template)),
 	);
 
 	if (config.mjml) {

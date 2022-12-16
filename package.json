@@ -3,14 +3,19 @@
 	"workspaces": [
 		"packages/*"
 	],
+	"scripts": {
+		"fmt": "npm run fmt -ws",
+		"lint": "npm run lint -ws"
+	},
 	"devDependencies": {
 		"@parcel/transformer-typescript-types": "^2.8.1",
-		"@vulpo-dev/eslint-config": "^1.2.0",
 		"@vulpo-dev/prettier-config": "^1.0.0",
 		"process": "^0.11.10",
 		"typescript": "~4.7"
 	},
 	"dependencies": {
-		"parcel": "2.8.1"
+		"lerna": "^6.1.0",
+		"parcel": "2.8.1",
+		"rome": "^11.0.0"
 	}
 }

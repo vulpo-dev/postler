@@ -14,7 +14,7 @@ export async function getFiles(src: string): Promise<Array<string>> {
 			}
 
 			return [path.join(src, entry.name)];
-		})
+		}),
 	);
 
 	return sink.flat();

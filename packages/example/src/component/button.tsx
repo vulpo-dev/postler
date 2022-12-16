@@ -74,10 +74,7 @@ export let Button = (props: Props) => {
 							<tbody>
 								<tr>
 									<td>
-										<a
-											href={props.href}
-											target='_blank'
-										>
+										<a href={props.href} target='_blank' rel="noreferrer">
 											{props.children}
 										</a>
 									</td>

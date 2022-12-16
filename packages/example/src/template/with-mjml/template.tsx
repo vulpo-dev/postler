@@ -32,10 +32,7 @@ export let Template = () => {
 				<MjmlPreview>Last Minute Offer...</MjmlPreview>
 			</MjmlHead>
 			<MjmlBody width={500}>
-				<MjmlSection
-					fullWidth
-					backgroundColor='#efefef'
-				>
+				<MjmlSection fullWidth backgroundColor='#efefef'>
 					<MjmlColumn>
 						<MjmlImage src={`${props.img}`} />
 					</MjmlColumn>

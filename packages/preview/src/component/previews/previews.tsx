@@ -44,8 +44,12 @@ export let Previews = () => {
 								})}
 							>
 								<Title className='biotic-text-ellipsis'>{item.title}</Title>
-								<span className='biotic-text-ellipsis'>{getSentence(`${item.title}-top`)}</span>
-								<span className='biotic-text-ellipsis'>{getSentence(`${item.title}-bottom`)}</span>
+								<span className='biotic-text-ellipsis'>
+									{getSentence(`${item.title}-top`)}
+								</span>
+								<span className='biotic-text-ellipsis'>
+									{getSentence(`${item.title}-bottom`)}
+								</span>
 							</Link>
 						</ListItem>
 					))}

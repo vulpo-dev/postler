@@ -34,7 +34,9 @@ test.group("Hooks", () => {
 		expect(`${bar}`).toEqual("{{props.bar}}");
 		expect(`${items}`).toEqual("{{props.items}}");
 		expect(`${items.at(0)?.name}`).toEqual("{{props.items.[0].name}}");
-		expect(`${items.at(0)?.["fuu-bar"]}`).toEqual("{{props.items.[0].[fuu-bar]}}");
+		expect(`${items.at(0)?.["fuu-bar"]}`).toEqual(
+			"{{props.items.[0].[fuu-bar]}}",
+		);
 		expect(`${nested}`).toEqual("{{props.nested}}");
 		expect(`${nested.fuu}`).toEqual("{{props.nested.fuu}}");
 		expect(`${nested.bax}`).toEqual("{{props.nested.bax}}");

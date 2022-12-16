@@ -33,10 +33,7 @@ export let Template = () => {
 						<td>&nbsp;</td>
 						<Container className='container'>
 							<Content className='content'>
-								<Main
-									role='presentation'
-									className='main'
-								>
+								<Main role='presentation' className='main'>
 									<tr>
 										<Wrapper className='wrapper'>
 											<table
@@ -51,21 +48,20 @@ export let Template = () => {
 														</If>
 														<p>Hi there,</p>
 														<p>
-															Sometimes you just want to send a simple HTML email with a simple
-															design and clear call to action. This is it.
+															Sometimes you just want to send a simple HTML
+															email with a simple design and clear call to
+															action. This is it.
 														</p>
-														<Button
-															align='center'
-															primary={props.primary}
-														>
+														<Button align='center' primary={props.primary}>
 															<If condition={props.primary}>
 																Primary
 																<Else>Secondary</Else>
 															</If>
 														</Button>
 														<p>
-															This is a really simple email template. Its sole purpose is to get the
-															recipient to click the button with no distractions.
+															This is a really simple email template. Its sole
+															purpose is to get the recipient to click the
+															button with no distractions.
 														</p>
 														<p>Good luck! Hope it works.</p>
 													</td>
@@ -76,18 +72,15 @@ export let Template = () => {
 								</Main>
 
 								<Footer className='footer'>
-									<table
-										role='presentation'
-										cellPadding='0'
-										cellSpacing='0'
-									>
+									<table role='presentation' cellPadding='0' cellSpacing='0'>
 										<tr>
 											<ContentBlock>
 												<span className='apple-link'>
 													Company Inc, 3 Abbey Road, San Francisco CA 94102
 												</span>
 												<br /> Don't like these emails?{" "}
-												<a href='http://i.imgur.com/CScmqnj.gif'>Unsubscribe</a>.
+												<a href='http://i.imgur.com/CScmqnj.gif'>Unsubscribe</a>
+												.
 											</ContentBlock>
 										</tr>
 										<tr>

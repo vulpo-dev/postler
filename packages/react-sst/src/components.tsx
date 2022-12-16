@@ -12,14 +12,8 @@ export function Document(props: DocumentProps): JSX.Element {
 		<html lang={fallback(props.lang, "en")}>
 			<head>
 				<meta charSet='UTF-8' />
-				<meta
-					name='viewport'
-					content='width=device-width, initial-scale=1.0'
-				/>
-				<meta
-					httpEquiv='X-UA-Compatible'
-					content='ie=edge'
-				/>
+				<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+				<meta httpEquiv='X-UA-Compatible' content='ie=edge' />
 				<title>{props.title ?? ""}</title>
 				{"{{ENV_STYLES}}"}
 			</head>

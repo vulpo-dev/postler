@@ -10,16 +10,12 @@
     "test": "ts-node ./bin/test.ts",
     "check": "tsc --noEmit",
     "prepublish": "npm run build",
-    "fmt": "prettier ./src --write",
-    "lint": "eslint ./src"
+    "fmt": "rome format ./src --write",
+    "lint": "rome check ./src"
   },
   "keywords": [],
   "author": "",
   "license": "MPL-2.0",
-  "prettier": "@vulpo-dev/prettier-config",
-  "eslintConfig": {
-    "extends": "@vulpo-dev"
-  },
   "dependencies": {
     "@biotic-ui/button": "^0.5.2",
     "@biotic-ui/input": "^0.5.0",

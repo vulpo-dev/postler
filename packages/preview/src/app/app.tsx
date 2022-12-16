@@ -34,11 +34,7 @@ export let App = () => {
 			</StyledHeader>
 			<TopBar.Content>
 				<SidebarLayout>
-					<Aside
-						drawer={DRAWER_BREAKPOINT}
-						open={isOpen}
-						onClose={() => {}}
-					>
+					<Aside drawer={DRAWER_BREAKPOINT} open={isOpen} onClose={() => {}}>
 						<AsideContent>
 							<Templates />
 						</AsideContent>

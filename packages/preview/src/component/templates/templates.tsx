@@ -1,6 +1,9 @@
 import styled from "@emotion/styled";
 import { NavLink, useNavigate } from "react-router-dom";
-import { templatesApi, useGetTemplatesQuery } from "~/src/store/templates.slice";
+import {
+	templatesApi,
+	useGetTemplatesQuery,
+} from "~/src/store/templates.slice";
 import { useServerEvent, useCurrentTemplate } from "~src/utils";
 
 export let Templates = () => {
@@ -15,7 +18,8 @@ export let Templates = () => {
 			trigger();
 
 			let shouldRedirect =
-				data.event === "remove" && data.path.endsWith(`${currentTemplate}/template.js`);
+				data.event === "remove" &&
+				data.path.endsWith(`${currentTemplate}/template.js`);
 
 			if (shouldRedirect) {
 				let [next] = (templates.data?.items ?? []).filter((template) => {

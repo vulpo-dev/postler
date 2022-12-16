@@ -10,7 +10,7 @@ export type ConditionProps = {
 	children: ReactNode;
 };
 
-export let If = ({ condition, children }: ConditionProps): JSX.Element => {
+export let If = ({ condition, children }: ConditionProps) => {
 	return (
 		<>
 			{`{{#if ${getCondition(condition)}}}`}
@@ -20,7 +20,7 @@ export let If = ({ condition, children }: ConditionProps): JSX.Element => {
 	);
 };
 
-export let Else = ({ children }: { children: ReactNode }): JSX.Element => {
+export let Else = ({ children }: { children: ReactNode }) => {
 	return (
 		<>
 			{"{{else}}"}
@@ -29,7 +29,7 @@ export let Else = ({ children }: { children: ReactNode }): JSX.Element => {
 	);
 };
 
-export let Unless = ({ condition, children }: ConditionProps): JSX.Element => {
+export let Unless = ({ condition, children }: ConditionProps) => {
 	return (
 		<>
 			{`{{#unless ${getCondition(condition)}}}`}
@@ -44,17 +44,20 @@ export type EachProps<T> = {
 	render: (props: PropProxy<T>) => ReactNode;
 };
 
-export let Each = <T extends Object>({ items, render }: EachProps<T>): JSX.Element => {
-	let proxy: PropProxy<T> = new Proxy({} as any, {
-		get: (_, key) => {
-			let value = `{{this.${key.toString()}}}`;
-			return Object.assign(value, {
-				toString: () => value,
-			});
+export let Each = <T extends Object>({ items, render }: EachProps<T>) => {
+	let proxy: unknown = new Proxy(
+		{},
+		{
+			get: (_, key) => {
+				let value = `{{this.${key.toString()}}}`;
+				return Object.assign(value, {
+					toString: () => value,
+				});
+			},
 		},
-	});
+	);
 
-	let children = render(proxy);
+	let children = render(proxy as PropProxy<T>);
 
 	return (
 		<>
@@ -74,7 +77,9 @@ export function log<T extends Array<ToString>>(...args: T): string {
 }
 
 function getCondition(condition: Condition): string {
-	return condition !== null && condition !== undefined ? condition.toString() : "false";
+	return condition !== null && condition !== undefined
+		? condition.toString()
+		: "false";
 }
 
 export function cx(...args: Array<string | Record<string, Condition>>): string {
@@ -90,8 +95,12 @@ export function cx(...args: Array<string | Record<string, Condition>>): string {
 	return `${classes.join(" ")} ${templates.join(" ")}`;
 }
 
-export function fallback(value: Condition, defaultValue: any): string {
-	let cond = isProp(value) ? getCondition(value) : typeof value === "string" ? true : value;
+export function fallback(value: Condition, defaultValue: unknown): string {
+	let cond = isProp(value)
+		? getCondition(value)
+		: typeof value === "string"
+		? true
+		: value;
 
 	return `{{#if ${cond}}}${value}{{else}}${defaultValue}{{/if}}`;
 }

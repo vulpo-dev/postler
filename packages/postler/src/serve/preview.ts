@@ -56,8 +56,13 @@ export function createPreviewsHandler(src: string): RouteOptions {
 			try {
 				let { template = "" } = query as { template?: string };
 				// eslint-disable-next-line @typescript-eslint/no-var-requires
-				let { Data = [] } = require(path.join(src, "template", template, "preview.js"));
-				let items = Data.map((item: Preview<any>) => {
+				let { Data = [] } = require(path.join(
+					src,
+					"template",
+					template,
+					"preview.js",
+				));
+				let items = Data.map((item: Preview<unknown>) => {
 					return { ...item, title: slugify(item.title) };
 				});
 				return { items };
@@ -80,7 +85,7 @@ export function createTranslationHandler(src: string): RouteOptions {
 					src,
 					"template",
 					template,
-					"index.js"
+					"index.js",
 				));
 				return { items: Translations, default: DefaultTranslation };
 			} catch (err) {
