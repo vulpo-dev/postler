@@ -19,9 +19,13 @@ export let layoutSlice = createSlice({
 		toggleSidebar(state) {
 			state.sidebar.open = !state.sidebar.open;
 		},
+
+		closeSidebar(state) {
+			state.sidebar.open = false;
+		},
 	},
 });
 
-export let { toggleSidebar } = layoutSlice.actions;
+export let { toggleSidebar, closeSidebar } = layoutSlice.actions;
 
 export default layoutSlice.reducer;

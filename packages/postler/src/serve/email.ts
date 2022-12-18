@@ -30,11 +30,12 @@ export function createSendEmailHandler(src: string): RouteOptions {
 }
 
 const REQUIRED_CONFIG_KEYS = [
-	"host",
-	"port",
-	"secure",
-	"auth.user",
-	"auth.pass",
+	"smtp.host",
+	"smtp.port",
+	"smtp.secure",
+	"smtp.auth.user",
+	"smtp.auth.pass",
+	"email.from",
 ];
 
 export function createHasEmailConfigHandler(src: string): RouteOptions {
@@ -44,9 +45,9 @@ export function createHasEmailConfigHandler(src: string): RouteOptions {
 		handler: async () => {
 			let configPath = path.join(src, "config.js");
 			let config = require(configPath);
-			let smtp = config.default?.smtp;
+			let conf = config.default ?? {};
 
-			if (smtp === undefined) {
+			if (conf.smtp === undefined || conf.email === undefined) {
 				return { hasConfig: false };
 			}
 
@@ -62,7 +63,7 @@ export function createHasEmailConfigHandler(src: string): RouteOptions {
 					}
 
 					return acc[key];
-				}, smtp);
+				}, conf);
 			}).every((value) => value !== undefined);
 
 			return { hasConfig };

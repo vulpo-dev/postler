@@ -13,4 +13,13 @@ export let Data: Previews<Props> = [
 			{ title: faker.lorem.words() },
 		],
 	}),
+	Item("title2", {
+		label: "GitHub",
+		img: faker.image.lorempicsum.image(),
+		items: [
+			{ title: faker.lorem.words() },
+			{ title: faker.lorem.words() },
+			{ title: faker.lorem.words() },
+		],
+	}),
 ];
