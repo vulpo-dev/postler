@@ -5,12 +5,14 @@ import { templateApi } from "./template.slice";
 import { previewsApi } from "./previews.slice";
 import { previewSlice } from "./preview.slice";
 import { layoutSlice } from "./layout.slice";
+import { emailApi } from "./email.slice";
 
 export const Store = configureStore({
 	reducer: {
 		[templatesApi.reducerPath]: templatesApi.reducer,
 		[templateApi.reducerPath]: templateApi.reducer,
 		[previewsApi.reducerPath]: previewsApi.reducer,
+		[emailApi.reducerPath]: emailApi.reducer,
 		preview: previewSlice.reducer,
 		layout: layoutSlice.reducer,
 	},
@@ -18,7 +20,8 @@ export const Store = configureStore({
 		getDefaultMiddleware()
 			.concat(templatesApi.middleware)
 			.concat(templateApi.middleware)
-			.concat(previewsApi.middleware),
+			.concat(previewsApi.middleware)
+			.concat(emailApi.middleware),
 });
 
 setupListeners(Store.dispatch);

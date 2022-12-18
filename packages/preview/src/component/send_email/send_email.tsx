@@ -9,10 +9,13 @@ import {
 	usePreviewProps,
 } from "~src/utils/template";
 
+import { useHasConfigQuery } from "~src/store/email.slice";
+
 export let SendEmail = () => {
 	let template = useCurrentTemplate();
 	let props = usePreviewProps(template);
 	let markup = useMarkup(template);
+	let { data } = useHasConfigQuery();
 
 	let [state, trigger] = usePost("/api/email/send");
 	let [email, setEmail] = useState("");
@@ -31,6 +34,16 @@ export let SendEmail = () => {
 		trigger(payload);
 	};
 
+	let hasConfig = data?.hasConfig ?? false;
+	let hasEmail = email !== "";
+	let isDisabled = !hasConfig || !hasEmail;
+
+	let buttonLabel = !hasConfig
+		? "Invalid email setup"
+		: !hasEmail
+		? "Enter email"
+		: "Send test email";
+
 	return (
 		<Form onSubmit={handleSubmit}>
 			<section>
@@ -41,9 +54,10 @@ export let SendEmail = () => {
 				/>
 			</section>
 			<Button
+				title={buttonLabel}
 				raised
 				loading={state.state === "loading"}
-				disabled={email === ""}
+				disabled={isDisabled}
 			>
 				Send Email
 			</Button>

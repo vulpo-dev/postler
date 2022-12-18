@@ -17,7 +17,7 @@ import {
 } from "./preview";
 import { createUpdatesHandler } from "./updates";
 import { createTemplateHandler, createTemplatesHandler } from "./template";
-import { createSendEmailHandler } from "./email";
+import { createHasEmailConfigHandler, createSendEmailHandler } from "./email";
 
 let TMP_DIR = ".postler";
 
@@ -69,15 +69,9 @@ export default async function handler({
 	server.route(createTemplateHandler(tmp));
 	server.route(createTemplatesHandler(src));
 
-	server.get("/api/schema/:template", async () => {
-		// TODO:
-		// use https://github.com/YousefED/typescript-json-schema to extract the
-		// props schema for a given template.
-		// should return a JSON Schema
-		return {};
-	});
-
+	// Send Email
 	server.route(createSendEmailHandler(tmp));
+	server.route(createHasEmailConfigHandler(tmp));
 
 	let instance = await server.listen({ port });
 	let runningPort = instance.split(":").reverse().at(0);

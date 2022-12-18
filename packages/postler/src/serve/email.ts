@@ -3,15 +3,14 @@ import nodemailer from "nodemailer";
 import * as path from "path";
 
 export function createSendEmailHandler(src: string): RouteOptions {
-	let configPath = path.join(src, "config.js");
-	// eslint-disable-next-line @typescript-eslint/no-var-requires
-	let config = require(configPath);
-	let transporter = nodemailer.createTransport(config.default?.smtp);
-
 	return {
 		method: "POST",
 		url: "/api/email/send",
-		handler: async (req, reply) => {
+		handler: async (req, _reply) => {
+			let configPath = path.join(src, "config.js");
+			let config = require(configPath);
+			let transporter = nodemailer.createTransport(config.default?.smtp);
+
 			let body = req.body as {
 				to: string;
 				html: string;
@@ -26,6 +25,47 @@ export function createSendEmailHandler(src: string): RouteOptions {
 			});
 
 			return info;
+		},
+	};
+}
+
+const REQUIRED_CONFIG_KEYS = [
+	"host",
+	"port",
+	"secure",
+	"auth.user",
+	"auth.pass",
+];
+
+export function createHasEmailConfigHandler(src: string): RouteOptions {
+	return {
+		method: "GET",
+		url: "/api/email/has_config",
+		handler: async () => {
+			let configPath = path.join(src, "config.js");
+			let config = require(configPath);
+			let smtp = config.default?.smtp;
+
+			if (smtp === undefined) {
+				return { hasConfig: false };
+			}
+
+			let hasConfig = REQUIRED_CONFIG_KEYS.map((key) => {
+				let keyPath = key.split(".");
+				return keyPath.reduce((acc, key) => {
+					if (acc === undefined) {
+						return undefined;
+					}
+
+					if (acc[key] === undefined) {
+						return undefined;
+					}
+
+					return acc[key];
+				}, smtp);
+			}).every((value) => value !== undefined);
+
+			return { hasConfig };
 		},
 	};
 }
