@@ -8,13 +8,9 @@ import {
 	MjmlColumn,
 	MjmlButton,
 	MjmlImage,
-	MjmlText,
+	MjmlRaw,
 } from "@faire/mjml-react";
 import { Each, createProps } from "postler";
-
-export default {
-	mjml: true,
-};
 
 export type Props = {
 	label: string;
@@ -42,24 +38,27 @@ export let Template = () => {
 						<MjmlButton
 							padding='20px'
 							backgroundColor='#346DB7'
-							href='https://www.wix.com/'
+							href='https://github.com/vulpo-dev/postler'
 						>
 							{props.label}
 						</MjmlButton>
 					</MjmlColumn>
 				</MjmlSection>
-				<MjmlSection>
-					<Each
-						items={props.items}
-						render={(item: { title: string }) => {
-							return (
-								<MjmlColumn>
-									<MjmlText>{item.title}</MjmlText>
-								</MjmlColumn>
-							);
-						}}
-					/>
-				</MjmlSection>
+				<MjmlRaw>
+					<ul>
+						
+						<Each
+							items={props.items}
+							render={(item: { title: string }) => {
+								return (
+									<li>
+										<p>{item.title}</p>
+									</li>
+								);
+							}}
+						/>
+					</ul>
+				</MjmlRaw>
 			</MjmlBody>
 		</Mjml>
 	);

@@ -5,20 +5,13 @@ import styled from "@emotion/styled";
 import { RootState } from "~src/store";
 import { setViewport } from "~src/store/preview.slice";
 import { TopBar } from "~/src/component/layout";
-import { Pulse } from "~/src/component/loading";
 import { Select, Option } from "~/src/component/input";
+
+import { Previews } from "./select-preview";
 
 export let ContentHeader = () => {
 	let dispatch = useDispatch();
 	let { viewport } = useSelector((state: RootState) => state.preview);
-
-	let isLoading = useSelector((state: RootState) => {
-		let pending = Object.values(state.templateApi.queries).filter(
-			(entry) => entry?.status === "pending",
-		).length;
-
-		return pending > 0;
-	});
 
 	let handleViewportChange = (event: ChangeEvent<HTMLSelectElement>) => {
 		dispatch(setViewport({ width: event.target.value }));
@@ -27,8 +20,14 @@ export let ContentHeader = () => {
 	return (
 		<StyledContentHeader>
 			<TitleSection>
-				<ContentTitle>Previews</ContentTitle>
+				<ContentTitle>Preview</ContentTitle>
 			</TitleSection>
+
+			<SelectPreviewWrapper>
+				<div>
+					<Previews />
+				</div>
+			</SelectPreviewWrapper>
 
 			<LeftSection>
 				<SelectWrapper>
@@ -40,8 +39,6 @@ export let ContentHeader = () => {
 						</Select>
 					</div>
 				</SelectWrapper>
-
-				<LoadingWrapper>{isLoading && <Pulse />}</LoadingWrapper>
 			</LeftSection>
 		</StyledContentHeader>
 	);
@@ -49,7 +46,7 @@ export let ContentHeader = () => {
 
 let StyledContentHeader = styled(TopBar.Header)`
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
 	background: #fff;
 	border-top-left-radius: var(--size-3);
 	border-top-right-radius: var(--size-3);
@@ -73,12 +70,13 @@ let LeftSection = styled.div`
 	justify-content: flex-end;
 `;
 
-let LoadingWrapper = styled.div`
-	width: var(--size-7);
-	flex-shrink: 0;
-`;
-
 let SelectWrapper = styled.div`
 	display: flex;
 	gap: var(--size-2);
+`;
+
+let SelectPreviewWrapper = styled.section`
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;

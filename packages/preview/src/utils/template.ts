@@ -1,38 +1,57 @@
 import { useQueryParams } from "@biotic-ui/std";
 import Handlebars from "handlebars";
-import { useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useCallback } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
 	useGetPreviewsQuery,
 	useGetTranslationsQuery,
 } from "~src/store/previews.slice";
 import { useGetTemplateQuery } from "~src/store/template.slice";
 
-export function usePreviewProps(template: string) {
+type UseCurrentPreview = [string | null, (preview: string) => void];
+
+export function useCurrentPreview(): UseCurrentPreview {
 	let navigate = useNavigate();
-	let search = useQueryParams();
+	let location = useLocation();
+	let search = useQueryParams(location.search);
 	let currentPreview = search.get("preview");
+
+	let setPreview = useCallback(
+		(preview: string) => {
+			let s = new URLSearchParams(search);
+			s.set("preview", preview);
+
+			navigate({
+				search: `?${s.toString()}`,
+			});
+		},
+		[location, search],
+	);
+
+	return [currentPreview, setPreview];
+}
+
+export function usePreviewProps(template: string) {
+	let [currentPreview, setPreview] = useCurrentPreview();
 
 	let {
 		data: { items = [] } = {},
 	} = useGetPreviewsQuery(template);
+
 	let entry = items.find((entry) => {
 		return entry.title === currentPreview;
 	});
 
 	useEffect(() => {
 		let entry = items.at(0);
-		if (currentPreview || !entry) {
+		let hasPreview = items.find((preview) => preview.title === currentPreview);
+
+		if (hasPreview !== undefined || !entry) {
 			return;
 		}
 
-		let s = new URLSearchParams(search);
-		s.set("preview", entry.title);
-
-		navigate({
-			search: `?${s.toString()}`,
-		});
-	}, [currentPreview, items]);
+		setPreview(entry.title);
+	}, [currentPreview, setPreview, items]);
 
 	return entry;
 }

@@ -6,15 +6,22 @@ import { useServerEvent, useCurrentTemplate } from "~src/utils";
 import { RootState, Store } from "~src/store";
 import { useSelector } from "react-redux";
 import { useCompiledTemplate } from "~src/utils/template";
+import { previewsApi } from "~src/store/previews.slice";
 
 export let Preview = () => {
 	let template = useCurrentTemplate();
+	let [triggerPreviews] = previewsApi.endpoints.getPreviews.useLazyQuery();
 
-	useServerEvent("/api/updates", () => {
+	useServerEvent("/api/updates", ({ data }) => {
 		Store.dispatch(templateApi.util.resetApiState());
 		Store.dispatch(
 			templateApi.util.prefetch("getTemplate", template, { force: true }),
 		);
+
+		let isPreview = data.path.endsWith(`${template}/preview.js`);
+		if (isPreview) {
+			triggerPreviews(template);
+		}
 	});
 
 	return <RenderView template={template} />;
@@ -58,14 +65,13 @@ let RenderView = ({ template }: RenderViewProps) => {
 let IFrame = styled.iframe`
 	width: 100%;
 	height: 100%;
-	background: #fff;
 	color-scheme: light dark;
 `;
 
 let Wrapper = styled.div`
 	display: flex;
 	justify-content: center;
-	padding-left: var(--size-10);
+	padding-left: var(--size-3);
 	padding-right: var(--size-3);
 	background: var(--foreground);
 `;

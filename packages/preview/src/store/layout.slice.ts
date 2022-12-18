@@ -8,7 +8,7 @@ type LayoutState = {
 
 let initialState: LayoutState = {
 	sidebar: {
-		open: window.matchMedia("(min-width: 1400px)").matches,
+		open: window.matchMedia("(min-width: 1280px)").matches,
 	},
 };
 

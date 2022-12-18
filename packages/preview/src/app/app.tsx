@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 
 import { SidebarLayout, Aside, Main, TopBar } from "~/src/component/layout";
 import { Templates } from "~/src/component/templates";
-import { Previews } from "~/src/component/previews";
 import { Preview } from "~/src/component/preview";
 import { ContentHeader } from "~/src/component/content_header";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,10 +42,7 @@ export let App = () => {
 						<MainContent>
 							<ContentContainer>
 								<ContentHeader />
-								<Content>
-									<Previews />
-									<Preview />
-								</Content>
+								<Preview />
 							</ContentContainer>
 						</MainContent>
 					</Main>
@@ -96,10 +92,4 @@ let Title = styled.h4`
 
 let ContentContainer = styled(TopBar.Container)`
 	grid-template-rows: var(--size-8) auto;
-`;
-
-let Content = styled(TopBar.Content)`
-	background: #fff;
-	display: grid;
-	grid-template-columns: var(--size-14) auto;
 `;
