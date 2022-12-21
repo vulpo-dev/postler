@@ -46,7 +46,7 @@
     "postler-preview": "0.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-sst": "1.0.0",
+    "react-sst": "0.1.0",
     "send": "^0.18.0",
     "slugify": "^1.6.5",
     "typescript-json-schema": "^0.55.0",

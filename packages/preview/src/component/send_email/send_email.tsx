@@ -36,7 +36,7 @@ export let SendEmail = () => {
 
 	let hasConfig = data?.hasConfig ?? false;
 	let hasEmail = email !== "";
-	let isDisabled = !hasConfig || !hasEmail;
+	let isDisabled = !(hasConfig && hasEmail);
 
 	let buttonLabel = !hasConfig
 		? "Invalid email setup"

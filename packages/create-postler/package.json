@@ -1,0 +1,28 @@
+{
+  "name": "create-postler",
+  "version": "0.1.0",
+  "source": "src/main.ts",
+  "module": "lib/module.js",
+  "main": "lib/main.js",
+  "types": "lib/types.d.ts",
+  "bin": {
+    "create-postler": "./src/main.js"
+  },
+  "scripts": {
+    "dev:create": "ts-node ./src/main example-project",
+    "build": "parcel build",
+    "check": "tsc --noEmit",
+    "prepublish": "npm run build",
+    "fmt": "rome format ./src --write",
+    "lint": "rome check ./src"
+  },
+  "keywords": [],
+  "author": "michael@riezler.co",
+  "license": "MPL-2.0",
+  "description": "Create a new Postler project",
+  "dependencies": {
+    "@types/mustache": "^4.2.2",
+    "@types/node": "^18.11.17",
+    "mustache": "^4.2.0"
+  }
+}

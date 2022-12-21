@@ -1,5 +1,5 @@
 {
   "useWorkspaces": true,
-  "useNx": true,
+  "useNx": false,
   "version": "0.1.0"
 }

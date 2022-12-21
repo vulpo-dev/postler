@@ -46,7 +46,6 @@ export let Template = () => {
 				</MjmlSection>
 				<MjmlRaw>
 					<ul>
-						
 						<Each
 							items={props.items}
 							render={(item: { title: string }) => {
