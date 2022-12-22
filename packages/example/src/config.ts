@@ -14,4 +14,5 @@ export default {
 	email: {
 		from: process.env.FROM_EMAIL,
 	},
+	templateEngine: "mustache"
 };

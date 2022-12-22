@@ -2,7 +2,7 @@ import * as fs from "fs/promises";
 import { existsSync } from "fs";
 import * as path from "path";
 import { buildFiles } from "../utils/build";
-import { getFiles, getTemplates } from "../utils/files";
+import { getConfig, getFiles, getTemplates } from "../utils/files";
 import { buildTemplate, getTemplate } from "../utils/template";
 import * as TJS from "typescript-json-schema";
 
@@ -55,6 +55,11 @@ export default async function handler({
 	let files = await getFiles(src);
 	await buildFiles(src, tmp, files);
 
+	let config = getConfig(tmp);
+	let fileExt = config?.templateEngine === "mustache" ? "mustache" : "hbs";
+
+	console.log("Template Engine: ", config?.templateEngine ?? "handlebars");
+
 	let templates = await getTemplates(tmp).then((items) => {
 		return items
 			.filter((entry) => entry.isDirectory())
@@ -62,7 +67,11 @@ export default async function handler({
 	});
 
 	let items = templates.map(({ name, compile }) => {
-		let html = buildTemplate(compile.Template, compile.Config);
+		let html = buildTemplate(
+			compile.Template,
+			compile.Config,
+			config?.templateEngine,
+		);
 		return { name, html };
 	});
 
@@ -74,7 +83,7 @@ export default async function handler({
 		}
 
 		let files: Array<[string, string]> = [
-			[path.join(outDir, "template.hbs"), html],
+			[path.join(outDir, `template.${fileExt}`), html],
 			[path.join(outDir, "props.schema.json"), buildSchema(src, name)],
 		];
 
@@ -94,7 +103,7 @@ export default async function handler({
 
 			await Promise.all(
 				translations.translations.filter(Boolean).map((t) => {
-					let file = path.join(translationOut, `${t.lang}.hbs`);
+					let file = path.join(translationOut, `${t.lang}.${fileExt}`);
 					return fs.writeFile(file, JSON.stringify(t.translation, null, 2));
 				}),
 			);

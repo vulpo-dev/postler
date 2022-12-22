@@ -1,7 +1,8 @@
 import * as fs from "fs/promises";
 import * as path from "path";
-import { Dirent } from "fs";
+import { Dirent, existsSync } from "fs";
 import { createRequire } from "module";
+import { Config } from "./types";
 
 export async function getFiles(src: string): Promise<Array<string>> {
 	let entries = await fs.readdir(src, { withFileTypes: true });
@@ -29,4 +30,15 @@ export async function getTemplates(src: string): Promise<Array<Dirent>> {
 	let templateDir = path.join(src, "template");
 	let files = await fs.readdir(templateDir, { withFileTypes: true });
 	return files.filter((file) => file.isDirectory());
+}
+
+export function getConfig(src: string): Config | null {
+	let configPath = path.join(src, "config.js");
+	if (!existsSync(configPath)) {
+		return null;
+	}
+
+	/* TODO: actually typecheck this */
+	let config = require(configPath);
+	return config.default as Config;
 }

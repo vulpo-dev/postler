@@ -34,7 +34,7 @@ export function runCli() {
 					port: argv.port,
 					tmpDir: argv.tmpDir,
 				}).catch((err) => {
-					console.error("Something went wrong", err);
+					console.error(err);
 					process.exit(1);
 				});
 			},
@@ -67,7 +67,7 @@ export function runCli() {
 					outDir: argv.outDir,
 					tmpDir: argv.tmpDir,
 				}).catch((err) => {
-					console.error("Something went wrong", err);
+					console.error(err);
 					process.exit(1);
 				});
 			},

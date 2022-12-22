@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { cx } from "postler";
+import { cx, fallback } from "postler";
 import { ReactNode } from "react";
 
 let StyledButton = styled.table`
@@ -47,11 +47,13 @@ let StyledButton = styled.table`
 	}
 `;
 
+type ButtonAlign = "center" | "left" | "right"
+
 type Props = {
 	children?: ReactNode;
 	href?: string;
 	primary?: boolean;
-	align?: "center" | "left" | "right";
+	align?: ButtonAlign;
 };
 
 export let Button = (props: Props) => {
@@ -64,7 +66,7 @@ export let Button = (props: Props) => {
 		>
 			<tbody className={cx({ "btn-primary": props.primary })}>
 				<tr>
-					<td align={props.align ?? "left"}>
+					<td align={fallback(props.align, "left") as ButtonAlign}>
 						<table
 							role='presentation'
 							border={0}

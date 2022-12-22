@@ -3,18 +3,14 @@ import { FormEvent, useState } from "react";
 import { Button } from "~/src/component/button";
 import { Input } from "~/src/component/input";
 import { useCurrentTemplate, usePost } from "~src/utils";
-import {
-	compileTemplate,
-	useMarkup,
-	usePreviewProps,
-} from "~src/utils/template";
+import { useCompiledTemplate, usePreviewProps } from "~src/utils/template";
 
 import { useHasConfigQuery } from "~src/store/email.slice";
 
 export let SendEmail = () => {
 	let template = useCurrentTemplate();
 	let props = usePreviewProps(template);
-	let markup = useMarkup(template);
+	let html = useCompiledTemplate(template);
 	let { data } = useHasConfigQuery();
 
 	let [state, trigger] = usePost("/api/email/send");
@@ -23,11 +19,13 @@ export let SendEmail = () => {
 	let handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
 
-		let html = compileTemplate(markup, props?.props ?? {});
+		if (html.isError || html.data?.value === undefined) {
+			return;
+		}
 
 		let payload = {
 			subject: `Test(${template}) ${props?.title}`,
-			html,
+			html: html.data.value,
 			to: email,
 		};
 
@@ -36,7 +34,7 @@ export let SendEmail = () => {
 
 	let hasConfig = data?.hasConfig ?? false;
 	let hasEmail = email !== "";
-	let isDisabled = !(hasConfig && hasEmail);
+	let isDisabled = !(hasConfig && hasEmail) || html.isError;
 
 	let buttonLabel = !hasConfig
 		? "Invalid email setup"

@@ -1,10 +1,12 @@
+import { ChangeEvent } from "react";
+import styled from "@emotion/styled";
+
 import { Select, Option } from "~/src/component/input";
 import { useGetPreviewsQuery } from "~src/store/previews.slice";
 import { useCurrentTemplate } from "~src/utils";
 import { useCurrentPreview } from "~/src/utils/template";
-import { ChangeEvent } from "react";
 
-export let Previews = () => {
+export let SelectPreviews = () => {
 	let template = useCurrentTemplate();
 	let { data } = useGetPreviewsQuery(template);
 	let [preview, setPreview] = useCurrentPreview();
@@ -13,13 +15,24 @@ export let Previews = () => {
 		setPreview(e.target.value);
 	};
 
+	let currentValue = preview ?? "";
+
 	return (
-		<Select value={preview ?? ""} onChange={handleChange}>
+		<StyledSelect
+			title={currentValue}
+			value={currentValue}
+			onChange={handleChange}
+		>
 			{data?.items.map((preview) => (
 				<Option key={preview.title} value={preview.title}>
 					{preview.title}
 				</Option>
 			))}
-		</Select>
+		</StyledSelect>
 	);
 };
+
+let StyledSelect = styled(Select)`
+	width: var(--size-13);
+	text-overflow: ellipsis;
+`;

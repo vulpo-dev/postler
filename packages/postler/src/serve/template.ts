@@ -20,8 +20,8 @@ export function createTemplatesHandler(src: string): RouteOptions {
 		method: "GET",
 		url: "/api/templates",
 		handler: async () => {
-			let items = await getTemplates(src);
-			return { items };
+			let templates = await getTemplates(src);
+			return { items: templates };
 		},
 	};
 }

@@ -14,6 +14,7 @@ import {
 	createRedirectHandler,
 	createPreviewsHandler,
 	createTranslationHandler,
+	createRenderTemplateHandler,
 } from "./preview";
 import { createUpdatesHandler } from "./updates";
 import { createTemplateHandler, createTemplatesHandler } from "./template";
@@ -61,13 +62,14 @@ export default async function handler({
 	server.route(createRedirectHandler(src));
 	server.route(createPreviewsHandler(tmp));
 	server.route(createTranslationHandler(tmp));
+	server.route(createRenderTemplateHandler(tmp));
 
 	// Send updates when something in the dist folder changes
 	server.route(createUpdatesHandler(tmp));
 
 	// Templates
 	server.route(createTemplateHandler(tmp));
-	server.route(createTemplatesHandler(src));
+	server.route(createTemplatesHandler(tmp));
 
 	// Send Email
 	server.route(createSendEmailHandler(tmp));

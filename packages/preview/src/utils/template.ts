@@ -1,11 +1,8 @@
 import { useQueryParams } from "@biotic-ui/std";
 import Handlebars from "handlebars";
-import { useEffect, useMemo, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import {
-	useGetPreviewsQuery,
-	useGetTranslationsQuery,
-} from "~src/store/previews.slice";
+import { useGetPreviewsQuery } from "~src/store/previews.slice";
 import { useGetTemplateQuery } from "~src/store/template.slice";
 
 type UseCurrentPreview = [string | null, (preview: string) => void];
@@ -57,24 +54,8 @@ export function usePreviewProps(template: string) {
 }
 
 export function useCompiledTemplate(template: string) {
-	let markup = useMarkup(template);
-	let { data: translations } = useGetTranslationsQuery(template);
-	let { props } = usePreviewProps(template) ?? {};
-	return useMemo(() => {
-		let t = Handlebars.compile(
-			JSON.stringify(translations?.default?.translation ?? {}),
-		);
-		let translated = t({ props });
-		return compileTemplate(markup, props, JSON.parse(translated));
-	}, [markup, props, translations]);
-}
-
-export function useMarkup(template: string) {
-	let {
-		data: { markup = "" } = {},
-	} = useGetTemplateQuery(template);
-
-	return markup;
+	let [currentPreview] = useCurrentPreview();
+	return useGetTemplateQuery([template, currentPreview, undefined]);
 }
 
 export function compileTemplate(

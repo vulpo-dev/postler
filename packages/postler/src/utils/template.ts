@@ -5,6 +5,7 @@ import * as path from "path";
 import { createElement, FunctionComponent } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import mjml2html from "mjml";
+import { TemplateEngine, TemplateEngineCtx } from "react-sst";
 
 let NoOp = () => null;
 
@@ -33,13 +34,21 @@ export function getTemplate(dist: string, template: string): TemplateConfig {
 	return { Template, Config };
 }
 
-export function buildTemplate(template: Template, config: Config): string {
+export function buildTemplate(
+	template: Template,
+	config: Config,
+	templateEngine: TemplateEngine = "handlebars",
+): string {
 	let cache = createCache({ key: "template" });
 	let { extractCriticalToChunks, constructStyleTagsFromChunks } =
 		createEmotionServer(cache);
 
 	let html = renderToStaticMarkup(
-		createElement(CacheProvider, { value: cache }, createElement(template)),
+		createElement(
+			TemplateEngineCtx.Provider,
+			{ value: templateEngine },
+			createElement(CacheProvider, { value: cache }, createElement(template)),
+		),
 	);
 
 	if (config.mjml) {

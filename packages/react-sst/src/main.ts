@@ -21,5 +21,9 @@ export {
 } from "./hooks";
 
 export { type PropProxy, type ToString } from "./types";
-
 export { Document } from "./components";
+export {
+	type TemplateEngine,
+	TemplateEngineCtx,
+	useTemplateEngine,
+} from "./context";

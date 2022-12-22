@@ -8,11 +8,13 @@ import { useMatchMedia } from "@biotic-ui/std";
 import { SidebarLayout, Aside, Main, TopBar } from "~/src/component/layout";
 import { Templates } from "~/src/component/templates";
 import { Preview } from "~/src/component/preview";
-import { ContentHeader } from "~/src/component/content_header";
 import { RootState } from "~/src/store";
 import { IconButton } from "~/src/component/button";
 import { closeSidebar, toggleSidebar } from "~/src/store/layout.slice";
 import { SendEmail } from "~/src/component/send_email";
+
+import { SelectPreviews } from "~/src/component/select_preview";
+import { SelectViewport } from "~src/component/select_viewport/select_viewport";
 
 let DRAWER_BREAKPOINT = "(max-width: 1080px)";
 
@@ -44,7 +46,23 @@ export let App = () => {
 				</HeaderSection>
 
 				<HeaderSection>
-					<SendEmail />
+					<SelectWrapper>
+						<span>Preview:</span>
+						<div>
+							<SelectPreviews />
+						</div>
+					</SelectWrapper>
+
+					<SelectWrapper>
+						<span>Viewport:</span>
+						<div>
+							<SelectViewport />
+						</div>
+					</SelectWrapper>
+
+					<EmailWrapper>
+						<SendEmail />
+					</EmailWrapper>
 				</HeaderSection>
 			</StyledHeader>
 			<TopBar.Content>
@@ -61,10 +79,7 @@ export let App = () => {
 					</Aside>
 					<Main>
 						<MainContent>
-							<ContentContainer>
-								<ContentHeader />
-								<Preview />
-							</ContentContainer>
+							<Preview />
 						</MainContent>
 					</Main>
 				</SidebarLayout>
@@ -117,12 +132,14 @@ let StyledContainer = styled(TopBar.Container)`
 `;
 
 let StyledHeader = styled(TopBar.Header)`
+	--_padding-start: var(--size-7);
 	background: var(--background);
 	border: none;
-	padding-left: var(--size-7);
+	padding-left: var(--_padding-start);
 	padding-right: var(--size-3);
-	display: flex;
-	justify-content: space-between;
+	
+	display: grid;
+	grid-template-columns: calc(250px - var(--_padding-start)) auto;
 `;
 
 let HeaderSection = styled.section`
@@ -135,6 +152,13 @@ let Title = styled.h4`
 	margin: 0;
 `;
 
-let ContentContainer = styled(TopBar.Container)`
-	grid-template-rows: var(--size-8) auto;
+let EmailWrapper = styled.div`
+	margin-left: auto;
+`;
+
+let SelectWrapper = styled.div`
+	display: flex;
+	gap: var(--size-2);
+	align-items: center;
+	margin-right: var(--size-5);
 `;
