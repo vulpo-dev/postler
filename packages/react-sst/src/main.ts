@@ -18,7 +18,7 @@ export {
 	createProxyHandler,
 	createTranslations,
 	createProps,
-} from "./hooks";
+} from "./proxy";
 
 export { type PropProxy, type ToString } from "./types";
 export { Document } from "./components";

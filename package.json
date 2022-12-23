@@ -1,11 +1,13 @@
 {
 	"name": "postler",
 	"workspaces": [
-		"packages/*"
+		"packages/*",
+		"example"
 	],
 	"scripts": {
 		"fmt": "npm run fmt -ws",
-		"lint": "npm run lint -ws"
+		"lint": "npm run lint -ws",
+		"packages:build": "parcel build ./packages/*"
 	},
 	"devDependencies": {
 		"@parcel/transformer-typescript-types": "^2.8.1",
