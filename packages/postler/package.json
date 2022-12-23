@@ -52,6 +52,7 @@
     "react-sst": "0.1.0",
     "send": "^0.18.0",
     "slugify": "^1.6.5",
+    "string-strip-html": "^8.4.0",
     "typescript-json-schema": "^0.55.0",
     "yargs": "^17.6.0"
   },

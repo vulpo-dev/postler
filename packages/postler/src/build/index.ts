@@ -3,7 +3,7 @@ import { existsSync } from "fs";
 import * as path from "path";
 import { buildFiles } from "../utils/build";
 import { getConfig, getFiles, getTemplates } from "../utils/files";
-import { buildTemplate, getTemplate } from "../utils/template";
+import { buildPlaintext, buildTemplate, getTemplate } from "../utils/template";
 import * as TJS from "typescript-json-schema";
 
 export type BuildArgs = {
@@ -72,11 +72,18 @@ export default async function handler({
 			compile.Config,
 			config?.templateEngine,
 		);
-		return { name, html };
+
+		let plaintext = buildPlaintext(
+			compile.Plaintext,
+			compile.Config,
+			config?.templateEngine,
+		);
+
+		return { name, html, plaintext };
 	});
 
 	console.log("\nBuild templates:");
-	let sink = items.map(async ({ name, html }) => {
+	let sink = items.map(async ({ name, html, plaintext }) => {
 		let outDir = path.join(out, name);
 		if (!existsSync(outDir)) {
 			await fs.mkdir(outDir, { recursive: true });
@@ -84,6 +91,7 @@ export default async function handler({
 
 		let files: Array<[string, string]> = [
 			[path.join(outDir, `template.${fileExt}`), html],
+			[path.join(outDir, `plaintext.${fileExt}`), plaintext],
 			[path.join(outDir, "props.schema.json"), buildSchema(src, name)],
 		];
 
