@@ -82,9 +82,6 @@ export function createProxyHandler(
 			}
 
 			let _key = makeKey(key.toString());
-			// we need to disable the linter, otherwise the proxy won't
-			// work if we don't wrap the string inside of new String()
-			// eslint-disable-next-line no-new-wrappers
 			let str = new String(getKey(...level, _key));
 			let obj = new Proxy(str, createProxyHandler([...level, _key]));
 			return obj;

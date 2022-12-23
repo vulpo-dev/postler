@@ -18,8 +18,9 @@ export type Props = {
 	items: Array<{ title: string }>;
 };
 
+let props = createProps<Props>();
+
 export let Template = () => {
-	let props = createProps<Props>();
 
 	return (
 		<Mjml>
