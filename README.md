@@ -81,17 +81,17 @@ Since we are compiling to static handlebars, we are unable to use build in JavaS
 import { Document, createProps, If } from "postler";
 
 export type Props = {
-	name?: string;
+    name?: string;
 };
 
 let props = createProps<Props>();
 
 let Template = () => {
-	return (
-		<If condition={props.name}>
-			Render if {props.name} is truthy
-		</If>
-	)
+    return (
+        <If condition={props.name}>
+            Render if {props.name} is truthy
+        </If>
+    )
 }
 ```
 
@@ -100,20 +100,20 @@ let Template = () => {
 import { Document, createProps, If, Else } from "postler";
 
 export type Props = {
-	name?: string;
+    name?: string;
 };
 
 let props = createProps<Props>();
 
 let Template = () => {
-	return (
-		<If condition={props.name}>
-			Render if {props.name} is truthy
-			<Else>
-				Render if name is falsy
-			</Else>
-		</If>
-	)
+    return (
+        <If condition={props.name}>
+            Render if {props.name} is truthy
+            <Else>
+                Render if name is falsy
+            </Else>
+        </If>
+    )
 }
 ```
 
@@ -122,17 +122,17 @@ let Template = () => {
 import { Document, createProps, Unless } from "postler";
 
 export type Props = {
-	name?: string;
+    name?: string;
 };
 
 let props = createProps<Props>();
 
 let Template = () => {
-	return (
-		<Unless condition={props.name}>
-			Render if name is falsey
-		</Unless>
-	)
+    return (
+        <Unless condition={props.name}>
+            Render if name is falsey
+        </Unless>
+    )
 }
 ```
 
@@ -141,24 +141,24 @@ let Template = () => {
 import { Document, createProps, Each } from "postler";
 
 type User = {
-	username: string
+    username: string
 };
 
 export type Props = {
-	users: Array<User>;
+    users: Array<User>;
 };
 
 let props = createProps<Props>();
 
 let Template = () => {
-	return (
-		<ul>
-			<Each
-				items={props.users}
-				render={(item: User) => <li>{ item.username }</li>}
-			/>
-		</ul>
-	)
+    return (
+        <ul>
+            <Each
+                items={props.users}
+                render={(item: User) => <li>{ item.username }</li>}
+            />
+        </ul>
+    )
 }
 ```
 
@@ -167,20 +167,20 @@ let Template = () => {
 import { Document, createProps, cx } from "postler";
 
 export type Props = {
-	active: boolean;
+    active: boolean;
 };
 
 let props = createProps<Props>();
 
 let Template = () => {
-	return (
-		<div
-			className={cx(
-				"component",
-				{ "component-active": props.active }
-			)}
-		/>
-	)
+    return (
+        <div
+            className={cx(
+                "component",
+                { "component-active": props.active }
+            )}
+        />
+    )
 }
 ```
 
@@ -189,17 +189,17 @@ let Template = () => {
 import { Document, createProps, fallback } from "postler";
 
 export type Props = {
-	name?: string;
+    name?: string;
 };
 
 let props = createProps<Props>();
 
 let Template = () => {
-	return (
-		<div>
-			Hello {fallback(props.name, "World")}
-		</div>
-	)
+    return (
+        <div>
+            Hello {fallback(props.name, "World")}
+        </div>
+    )
 }
 ```
 
@@ -208,17 +208,17 @@ let Template = () => {
 import { Document, createProps, html } from "postler";
 
 export type Props = {
-	name?: string;
+    name?: string;
 };
 
 let props = createProps<Props>();
 
 let Template = () => {
-	return (
-		<div>
-			Hello {html(props.name)}
-		</div>
-	)
+    return (
+        <div>
+            Hello {html(props.name)}
+        </div>
+    )
 }
 ```
 
@@ -238,29 +238,29 @@ Use the `<Plaintext />` React component to create a plain text version of your t
 import { Document, createProps, If } from "postler";
 
 export type Props = {
-	name?: string;
+    name?: string;
 };
 
 let props = createProps<Props>();
 
 let Plaintext = () => {
-	return (
-		<p>
-			<If condition={props.name}>
-				Render if {props.name} is truthy
-			</If>
-		</p>
-	)
+    return (
+        <p>
+            <If condition={props.name}>
+                Render if {props.name} is truthy
+            </If>
+        </p>
+    )
 }
 
 let Template = () => {
-	return (
-		<Document>
-			<If condition={props.name}>
-				Render if {props.name} is truthy
-			</If>
-		</Document>
-	)
+    return (
+        <Document>
+            <If condition={props.name}>
+                Render if {props.name} is truthy
+            </If>
+        </Document>
+    )
 }
 ```
 
@@ -271,24 +271,24 @@ import { GetTranslation, ToTranslations } from "postler";
 import { props } from "./types";
 
 export let DefaultTranslation = {
-	lang: "en",
-	translation: {
-		hello: "Hello",
-		withProp: `With Prop: ${props.name}`,
-		buttonLabel: "This is a button",
-	},
+    lang: "en",
+    translation: {
+        hello: "Hello",
+        withProp: `With Prop: ${props.name}`,
+        buttonLabel: "This is a button",
+    },
 };
 
 export type Translation = GetTranslation<typeof DefaultTranslation>;
 export let Translations: ToTranslations<typeof DefaultTranslation> = [
-	{
-		lang: "de",
-		translation: {
-			hello: "Hallo",
-			withProp: `Mit Prop: ${props.name}`,
-			buttonLabel: "Das ist ein Knopf",
-		},
-	},
+    {
+        lang: "de",
+        translation: {
+            hello: "Hallo",
+            withProp: `Mit Prop: ${props.name}`,
+            buttonLabel: "Das ist ein Knopf",
+        },
+    },
 ];
 ```
 
@@ -299,24 +299,24 @@ export let Translations: ToTranslations<typeof DefaultTranslation> = [
 type TemplateEngine = "handlebars" | "mustache";
 
 type Config = {
-	// nodemailer settings, required when sending test emails
-	smtp?: {
-		host: string;
-		port: number;
-		secure: boolean;
-		auth: {
-			user: string;
-			pass: string;
-		};
-	};
+    // nodemailer settings, required when sending test emails
+    smtp?: {
+        host: string;
+        port: number;
+        secure: boolean;
+        auth: {
+            user: string;
+            pass: string;
+        };
+    };
 
-	// the email from where the test email will be send from
-	email: {
-		from: string;
-	};
+    // the email from where the test email will be send from
+    email: {
+        from: string;
+    };
 
-	// the template engine used to render the components
-	templateEngine?: TemplateEngine;
+    // the template engine used to render the components
+    templateEngine?: TemplateEngine;
 };
 ```
 
@@ -339,82 +339,82 @@ Postler has built-in support for [MJML](https://mjml.io/).
 export { Template } from "./template";
 export { type Props } from "./types";
 export {
-	DefaultTranslation,
-	Translations,
-	type Translation,
+    DefaultTranslation,
+    Translations,
+    type Translation,
 } from "./translations";
 
 export default {
-	mjml: true, // additional per template config
+    mjml: true, // additional per template config
 }
 ```
 
 3. Create mjml template
 ```tsx
 import {
-	Mjml,
-	MjmlHead,
-	MjmlTitle,
-	MjmlPreview,
-	MjmlBody,
-	MjmlSection,
-	MjmlColumn,
-	MjmlButton,
-	MjmlImage,
-	MjmlRaw,
+    Mjml,
+    MjmlHead,
+    MjmlTitle,
+    MjmlPreview,
+    MjmlBody,
+    MjmlSection,
+    MjmlColumn,
+    MjmlButton,
+    MjmlImage,
+    MjmlRaw,
 } from "@faire/mjml-react";
 import { Each, createProps } from "postler";
 
 export type Props = {
-	label: string;
-	img: string;
-	items: Array<{ title: string }>;
+    label: string;
+    img: string;
+    items: Array<{ title: string }>;
 };
 
 let props = createProps<Props>();
 
 export let Template = () => {
 
-	return (
-		<Mjml>
-			<MjmlHead>
-				<MjmlTitle>Last Minute Offer</MjmlTitle>
-				<MjmlPreview>Last Minute Offer...</MjmlPreview>
-			</MjmlHead>
-			<MjmlBody width={500}>
-				<MjmlSection fullWidth backgroundColor='#efefef'>
-					<MjmlColumn>
-						<MjmlImage src={`${props.img}`} />
-					</MjmlColumn>
-				</MjmlSection>
-				<MjmlSection>
-					<MjmlColumn>
-						<MjmlButton
-							padding='20px'
-							backgroundColor='#346DB7'
-							href='https://github.com/vulpo-dev/postler'
-						>
-							{props.label}
-						</MjmlButton>
-					</MjmlColumn>
-				</MjmlSection>
-				<MjmlRaw>
-					<ul>
-						<Each
-							items={props.items}
-							render={(item: { title: string }) => {
-								return (
-									<li>
-										<p>{item.title}</p>
-									</li>
-								);
-							}}
-						/>
-					</ul>
-				</MjmlRaw>
-			</MjmlBody>
-		</Mjml>
-	);
+    return (
+        <Mjml>
+            <MjmlHead>
+                <MjmlTitle>Last Minute Offer</MjmlTitle>
+                <MjmlPreview>Last Minute Offer...</MjmlPreview>
+            </MjmlHead>
+            <MjmlBody width={500}>
+                <MjmlSection fullWidth backgroundColor='#efefef'>
+                    <MjmlColumn>
+                        <MjmlImage src={`${props.img}`} />
+                    </MjmlColumn>
+                </MjmlSection>
+                <MjmlSection>
+                    <MjmlColumn>
+                        <MjmlButton
+                            padding='20px'
+                            backgroundColor='#346DB7'
+                            href='https://github.com/vulpo-dev/postler'
+                        >
+                            {props.label}
+                        </MjmlButton>
+                    </MjmlColumn>
+                </MjmlSection>
+                <MjmlRaw>
+                    <ul>
+                        <Each
+                            items={props.items}
+                            render={(item: { title: string }) => {
+                                return (
+                                    <li>
+                                        <p>{item.title}</p>
+                                    </li>
+                                );
+                            }}
+                        />
+                    </ul>
+                </MjmlRaw>
+            </MjmlBody>
+        </Mjml>
+    );
 };
 ```
 
@@ -431,18 +431,18 @@ import { Previews, Item } from "postler";
 import { Props } from "./template";
 
 export let Data: Previews<Props> = [
-	Item("fullName", {
-		name: faker.name.fullName(),
-	}),
-	Item("firstName", {
-		name: faker.name.firstName(),
-	}),
-	Item("lastName", {
-		name: faker.name.lastName(),
-	}),
-	Item("long name", {
-		name: faker.lorem.words(),
-	}),
+    Item("fullName", {
+        name: faker.name.fullName(),
+    }),
+    Item("firstName", {
+        name: faker.name.firstName(),
+    }),
+    Item("lastName", {
+        name: faker.name.lastName(),
+    }),
+    Item("long name", {
+        name: faker.lorem.words(),
+    }),
 ];
 ```
 
@@ -491,11 +491,11 @@ The Postler CLI provides two commands: `serve` and `build`
 import { createProps } from "postler";
 
 type Props = {
-	fuu: {
-		bar: {
-			baz: number,
-		},
-	}
+    fuu: {
+        bar: {
+            baz: number,
+        },
+    }
 }
 
 let props = createProps<Props>()
