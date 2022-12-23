@@ -175,8 +175,8 @@ export function fallback(value: Condition, defaultValue: unknown): string {
 	let cond = isProp(value)
 		? getCondition(value)
 		: typeof value === "string"
-			? true
-			: value;
+		? true
+		: value;
 
 	if (engine === "mustache") {
 		return `{{#${cond}}}${value}{{/${cond}}}{{^${cond}}}${defaultValue}{{/${cond}}}`;

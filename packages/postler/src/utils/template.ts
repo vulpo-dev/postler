@@ -26,12 +26,11 @@ export type TemplateConfig = {
 
 export function getTemplate(dist: string, template: string): TemplateConfig {
 	// eslint-disable-next-line @typescript-eslint/no-var-requires
-	let { Template = NoOp, default: Config = DefaultConfig, Plaintext = NoOp } = require(path.join(
-		dist,
-		"template",
-		template,
-		"index.js",
-	));
+	let {
+		Template = NoOp,
+		default: Config = DefaultConfig,
+		Plaintext = NoOp,
+	} = require(path.join(dist, "template", template, "index.js"));
 
 	return { Template, Config, Plaintext };
 }
@@ -82,5 +81,5 @@ export function buildPlaintext(
 
 	// TODO: strip possible html tags: https://www.npmjs.com/package/string-strip-html
 
-	return stripHtml(html.replaceAll("<br/>", "\n")).result
+	return stripHtml(html.replaceAll("<br/>", "\n")).result;
 }

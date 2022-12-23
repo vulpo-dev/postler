@@ -21,7 +21,6 @@ export type Props = {
 let props = createProps<Props>();
 
 export let Template = () => {
-
 	return (
 		<Mjml>
 			<MjmlHead>

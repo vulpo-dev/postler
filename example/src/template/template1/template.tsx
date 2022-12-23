@@ -9,16 +9,23 @@ let t = createTranslations<Translation>();
 export let Plaintext = () => {
 	return (
 		<>
-			Name: {props.name}<br />
-			Email: {props.email}<br />
+			Name: {props.name}
+			<br />
+			Email: {props.email}
+			<br />
 
 			<Each
 				items={props.items}
-				render={(item: Item) => <>- {item.title}<br /></>}
+				render={(item: Item) => (
+					<>
+						- {item.title}
+						<br />
+					</>
+				)}
 			/>
 		</>
-	)
-}
+	);
+};
 
 export let Template = () => {
 	return (

@@ -47,7 +47,7 @@ let StyledButton = styled.table`
 	}
 `;
 
-type ButtonAlign = "center" | "left" | "right"
+type ButtonAlign = "center" | "left" | "right";
 
 type Props = {
 	children?: ReactNode;
