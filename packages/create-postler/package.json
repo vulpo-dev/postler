@@ -6,7 +6,7 @@
   "main": "lib/main.js",
   "types": "lib/types.d.ts",
   "bin": {
-    "create-postler": "./src/main.js"
+    "create-postler": "./index.js"
   },
   "scripts": {
     "dev:create": "ts-node ./src/main example-project",
