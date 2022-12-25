@@ -7,7 +7,8 @@
 	"scripts": {
 		"fmt": "npm run fmt -ws",
 		"lint": "npm run lint -ws",
-		"packages:build": "parcel build ./packages/*"
+		"packages:build": "parcel build ./packages/*",
+		"publish": "lerna publish"
 	},
 	"devDependencies": {
 		"@parcel/transformer-typescript-types": "^2.8.1",
