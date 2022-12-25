@@ -5,7 +5,7 @@ import * as path from "path";
 import { createElement, FunctionComponent } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import mjml2html from "mjml";
-import { TemplateEngine, TemplateEngineCtx } from "react-sst";
+import { TemplateEngine, TemplateEngineCtx } from "@vulpo-dev/react-sst";
 import { stripHtml } from "string-strip-html";
 
 let NoOp = () => null;

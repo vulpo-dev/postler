@@ -1,4 +1,4 @@
-import { TemplateEngine } from "react-sst";
+import { TemplateEngine } from "@vulpo-dev/react-sst";
 
 type Translation<T = unknown> = { lang: string; translation: T };
 

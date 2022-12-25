@@ -1,6 +1,6 @@
 {
   "name": "postler",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "source": "src/main.ts",
   "module": "lib/module.js",
@@ -39,7 +39,7 @@
     "postler-preview": "0.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-sst": "0.1.0",
+    "@vulpo-dev/react-sst": "0.2.0",
     "send": "^0.18.0",
     "slugify": "^1.6.5",
     "string-strip-html": "^8.4.0",
