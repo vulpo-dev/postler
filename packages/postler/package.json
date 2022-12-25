@@ -37,7 +37,7 @@
     "mustache": "^4.2.0",
     "node-watch": "^0.7.3",
     "nodemailer": "^6.8.0",
-    "postler-preview": "0.1.0",
+    "postler-preview": "0.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "send": "^0.18.0",
