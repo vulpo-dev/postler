@@ -12,8 +12,8 @@
   "scripts": {
     "dev": "nodemon ./src/run_cli.ts serve --src ../../example",
     "dev:build": "ts-node ./src/run_cli.ts build --src ../../example",
-    "watch": "parcel watch",
-    "build": "parcel build",
+    "watch": "npm run build -- --watch",
+    "build": "tsc --rootDir ./src --outDir ./lib",
     "test": "ts-node ./bin/test.ts",
     "check": "tsc --noEmit",
     "prepublish": "npm run build",
