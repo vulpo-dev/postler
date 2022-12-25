@@ -14,7 +14,8 @@ yarn create postler <project-name>
 		return process.exit(1);
 	}
 
-	let templateDir = path.join(__dirname, "..", "template");
+	let dir = path.dirname(__filename);
+	let templateDir = path.join(dir, "..", "template");
 	let files = await getFiles(templateDir);
 
 	let sink = files.map(async (file) => {
