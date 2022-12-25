@@ -3,7 +3,7 @@ import { ArgumentsCamelCase } from "yargs";
 import serve, { ServeArgs } from "./serve";
 import build, { BuildArgs } from "./build";
 
-export function runCli() {
+export function runCli(previewDir: string) {
 	yargs
 		.scriptName("postler")
 		.command({
@@ -33,6 +33,7 @@ export function runCli() {
 					workingDirectory: argv.workingDirectory,
 					port: argv.port,
 					tmpDir: argv.tmpDir,
+					previewDir,
 				}).catch((err) => {
 					console.error(err);
 					process.exit(1);

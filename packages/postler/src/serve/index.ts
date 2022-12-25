@@ -6,7 +6,7 @@ import { existsSync } from "fs";
 import watch from "node-watch";
 
 import { buildFiles } from "../utils/build";
-import { getFiles, getPreviewDirectory } from "../utils/files";
+import { getFiles } from "../utils/files";
 
 import { onSrcChange, onDistChange } from "./watch";
 import {
@@ -26,12 +26,14 @@ export type ServeArgs = {
 	workingDirectory?: string;
 	port?: number;
 	tmpDir?: string;
+	previewDir: string,
 };
 
 export default async function handler({
 	workingDirectory = process.cwd(),
 	port = 47150,
 	tmpDir = TMP_DIR,
+	previewDir
 }: ServeArgs) {
 	let cwd = path.isAbsolute(workingDirectory)
 		? workingDirectory
@@ -39,7 +41,7 @@ export default async function handler({
 
 	let src = path.join(cwd, "src");
 	let tmp = path.join(cwd, tmpDir);
-	let previewRoot = path.join(getPreviewDirectory(cwd), "dist");
+	let previewRoot = path.join(previewDir, "dist");
 
 	if (existsSync(tmp)) {
 		console.log(`Clear ${tmpDir} directory`);
