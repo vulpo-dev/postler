@@ -1,6 +1,6 @@
 {
   "name": "create-postler",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "source": "src/main.ts",
   "module": "lib/module.js",
   "main": "lib/main.js",
