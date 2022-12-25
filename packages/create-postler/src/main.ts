@@ -3,7 +3,7 @@ import * as fs from "fs/promises";
 import * as path from "path";
 import Mustache from "mustache";
 
-async function main() {
+export async function main(templateDir: string) {
 	const projectName = process.argv.at(2);
 
 	if (!projectName) {
@@ -13,9 +13,8 @@ yarn create postler <project-name>
 `);
 		return process.exit(1);
 	}
+	console.log(`Creating your project: ${projectName}`);
 
-	let dir = path.dirname(__filename);
-	let templateDir = path.join(dir, "..", "template");
 	let files = await getFiles(templateDir);
 
 	let sink = files.map(async (file) => {
@@ -36,12 +35,9 @@ yarn create postler <project-name>
 	});
 
 	await Promise.all(sink);
-}
 
-main().catch((err) => {
-	console.log("Something went wrong");
-	console.error(err);
-});
+	console.log("Project created");
+}
 
 export async function getFiles(src: string): Promise<Array<string>> {
 	let entries = await fs.readdir(src, { withFileTypes: true });
