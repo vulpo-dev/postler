@@ -23,6 +23,7 @@
   "dependencies": {
     "@types/mustache": "^4.2.2",
     "@types/node": "^18.11.17",
+    "axios": "^1.2.1",
     "mustache": "^4.2.0"
   }
 }
