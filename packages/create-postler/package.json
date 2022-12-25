@@ -5,6 +5,9 @@
   "module": "lib/module.js",
   "main": "lib/main.js",
   "types": "lib/types.d.ts",
+  "files": [
+    "template/**"
+  ],
   "bin": {
     "create-postler": "./index.js"
   },
