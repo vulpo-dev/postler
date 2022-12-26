@@ -1,5 +1,5 @@
 export { Template, Plaintext } from "./template";
-export { type Props } from "./types";
+export { type TemplateProps } from "./types";
 export {
 	DefaultTranslation,
 	Translations,

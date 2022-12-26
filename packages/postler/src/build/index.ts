@@ -92,7 +92,7 @@ export default async function handler({
 		let files: Array<[string, string]> = [
 			[path.join(outDir, `template.${fileExt}`), html],
 			[path.join(outDir, `plaintext.${fileExt}`), plaintext],
-			[path.join(outDir, "props.schema.json"), buildSchema(src, name)],
+			[path.join(outDir, "props.schema.json"), buildPropsSchema(src, name)],
 		];
 
 		await Promise.all(
@@ -145,14 +145,16 @@ export default async function handler({
 	});
 }
 
-function buildSchema(src: string, name: string) {
+function buildPropsSchema(src: string, name: string) {
+	let templateDir = path.join(src, "template", name).split(path.sep).join(path.posix.sep);
+
 	let program = TJS.getProgramFromFiles(
-		[path.join(src, "template", name, "index.ts")],
+		[path.join(templateDir, "index.ts")],
 		COMPILER_OPTIONS,
 		path.join(src),
 	);
 
-	let schema = TJS.generateSchema(program, "Props", {}, ["index.ts"]);
+	let schema = TJS.generateSchema(program, "TemplateProps", {}, ["index.ts"]);
 	return JSON.stringify(schema, null, 2);
 }
 

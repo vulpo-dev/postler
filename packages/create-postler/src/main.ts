@@ -85,7 +85,8 @@ async function generatePkgJson(projectName: string) {
 		"@types/react",
 		"postler",
 		"dotenv",
-		"react"
+		"react",
+		"typescript",
 	];
 
 	let resolved = await Promise.all(dependencies.map(async dep => {

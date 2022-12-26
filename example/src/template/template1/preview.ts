@@ -1,9 +1,9 @@
 import { faker } from "@faker-js/faker";
 
 import { Previews, Item } from "postler";
-import { Props, Item as PropItem } from "./types";
+import { TemplateProps, Item as PropItem } from "./types";
 
-export let Data: Previews<Props> = [
+export let Data: Previews<TemplateProps> = [
 	Item("title", {
 		name: faker.name.fullName(),
 		email: faker.internet.email(),

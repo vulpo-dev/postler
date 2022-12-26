@@ -1,6 +1,6 @@
 import { createProps } from "postler";
 
-export type Props = {
+export type TemplateProps = {
 	name: string;
 	propject: string;
 	email: string;
@@ -12,4 +12,4 @@ export type Item = {
 	title: string;
 };
 
-export let props = createProps<Props>();
+export let props = createProps<TemplateProps>();

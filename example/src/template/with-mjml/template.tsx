@@ -12,13 +12,13 @@ import {
 } from "@faire/mjml-react";
 import { Each, createProps } from "postler";
 
-export type Props = {
+export type TemplateProps = {
 	label: string;
 	img: string;
 	items: Array<{ title: string }>;
 };
 
-let props = createProps<Props>();
+let props = createProps<TemplateProps>();
 
 export let Template = () => {
 	return (

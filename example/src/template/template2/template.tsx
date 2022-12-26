@@ -12,13 +12,13 @@ import {
 	ContentBlock,
 } from "../../component/index";
 
-export type Props = {
+export type TemplateProps = {
 	title?: string;
 	primary?: boolean;
 };
 
 export let Template = () => {
-	let props = createProps<Props>();
+	let TemplateProps = createProps<TemplateProps>();
 
 	return (
 		<Document>
@@ -43,8 +43,8 @@ export let Template = () => {
 											>
 												<tr>
 													<td>
-														<If condition={props.title}>
-															<h1>Title: {props.title}</h1>
+														<If condition={TemplateProps.title}>
+															<h1>Title: {TemplateProps.title}</h1>
 														</If>
 														<p>Hi there,</p>
 														<p>
@@ -52,8 +52,8 @@ export let Template = () => {
 															email with a simple design and clear call to
 															action. This is it.
 														</p>
-														<Button align='center' primary={props.primary}>
-															<If condition={props.primary}>
+														<Button align='center' primary={TemplateProps.primary}>
+															<If condition={TemplateProps.primary}>
 																Primary
 																<Else>Secondary</Else>
 															</If>

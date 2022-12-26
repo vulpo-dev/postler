@@ -27,7 +27,7 @@ This is where you will store your templates. Postler expects to find an `index.t
 Exports:
 -   `<Template />`: a React component that will be converted to a Handlebars template
 -   `<Plaintext />`: a plaintext fallback
--   `type Props`: the schema for rendering the template
+-   `type TemplateProps`: the schema for rendering the template
 -   `type Translation`: the schema for translations
 -   `DefaultTranslation`: the default translations to use as a fallback
 -   `Translations`: an array of translations
@@ -39,11 +39,11 @@ Exports:
 import styled from "@emotion/styled";
 import { Document, createProps } from "postler";
 
-export type Props = {
+export type TemplateProps = {
   name: string;
 };
 
-let props = createProps<Props>();
+let props = createProps<TemplateProps>();
 
 export let Template = () => {
   return (
@@ -70,7 +70,7 @@ let Body = styled.body`
 
 ```ts
 // src/templates/<your-template>/index.ts
-export { type Props, Template } from "./template.tsx"
+export { type TemplateProps, Template } from "./template.tsx"
 ```
 
 ### Build in helpers:
@@ -80,11 +80,11 @@ Since we are compiling to static handlebars, we are unable to use build in JavaS
 ```tsx
 import { Document, createProps, If } from "postler";
 
-export type Props = {
+export type TemplateProps = {
     name?: string;
 };
 
-let props = createProps<Props>();
+let props = createProps<TemplateProps>();
 
 let Template = () => {
     return (
@@ -99,11 +99,11 @@ let Template = () => {
 ```tsx
 import { Document, createProps, If, Else } from "postler";
 
-export type Props = {
+export type TemplateProps = {
     name?: string;
 };
 
-let props = createProps<Props>();
+let props = createProps<TemplateProps>();
 
 let Template = () => {
     return (
@@ -121,11 +121,11 @@ let Template = () => {
 ```tsx
 import { Document, createProps, Unless } from "postler";
 
-export type Props = {
+export type TemplateProps = {
     name?: string;
 };
 
-let props = createProps<Props>();
+let props = createProps<TemplateProps>();
 
 let Template = () => {
     return (
@@ -144,11 +144,11 @@ type User = {
     username: string
 };
 
-export type Props = {
+export type TemplateProps = {
     users: Array<User>;
 };
 
-let props = createProps<Props>();
+let props = createProps<TemplateProps>();
 
 let Template = () => {
     return (
@@ -166,11 +166,11 @@ let Template = () => {
 ```tsx
 import { Document, createProps, cx } from "postler";
 
-export type Props = {
+export type TemplateProps = {
     active: boolean;
 };
 
-let props = createProps<Props>();
+let props = createProps<TemplateProps>();
 
 let Template = () => {
     return (
@@ -188,11 +188,11 @@ let Template = () => {
 ```tsx
 import { Document, createProps, fallback } from "postler";
 
-export type Props = {
+export type TemplateProps = {
     name?: string;
 };
 
-let props = createProps<Props>();
+let props = createProps<TemplateProps>();
 
 let Template = () => {
     return (
@@ -207,11 +207,11 @@ let Template = () => {
 ```tsx
 import { Document, createProps, html } from "postler";
 
-export type Props = {
+export type TemplateProps = {
     name?: string;
 };
 
-let props = createProps<Props>();
+let props = createProps<TemplateProps>();
 
 let Template = () => {
     return (
@@ -237,11 +237,11 @@ Use the `<Plaintext />` React component to create a plain text version of your t
 ```tsx
 import { Document, createProps, If } from "postler";
 
-export type Props = {
+export type TemplateProps = {
     name?: string;
 };
 
-let props = createProps<Props>();
+let props = createProps<TemplateProps>();
 
 let Plaintext = () => {
     return (
@@ -337,7 +337,7 @@ Postler has built-in support for [MJML](https://mjml.io/).
 2.  Configure your template in `src/template/<your-template>/index.ts`.
 ```ts
 export { Template } from "./template";
-export { type Props } from "./types";
+export { type TemplateProps } from "./types";
 export {
     DefaultTranslation,
     Translations,
@@ -365,13 +365,13 @@ import {
 } from "@faire/mjml-react";
 import { Each, createProps } from "postler";
 
-export type Props = {
+export type TemplateProps = {
     label: string;
     img: string;
     items: Array<{ title: string }>;
 };
 
-let props = createProps<Props>();
+let props = createProps<TemplateProps>();
 
 export let Template = () => {
 
@@ -428,9 +428,9 @@ In addition to your template, Postler will also look for a `preview.ts` file ins
 import { faker } from "@faker-js/faker";
 
 import { Previews, Item } from "postler";
-import { Props } from "./template";
+import { TemplateProps } from "./template";
 
-export let Data: Previews<Props> = [
+export let Data: Previews<TemplateProps> = [
     Item("fullName", {
         name: faker.name.fullName(),
     }),
@@ -448,7 +448,7 @@ export let Data: Previews<Props> = [
 
 **Notes:**
 - `Previews` is a helper type to ensure your preview and your props won't go out of sync.
-- `Item` is a small wrapper around `{ title: string, props: Props }`
+- `Item` is a small wrapper around `{ title: string, props: TemplateProps }`
 - You can use [fakerjs.dev](https://fakerjs.dev/) to generate fake data to ensure your designs will work for different kinds of data, or just hard code edge cases you want to handle
 
 ## Send Preview Emails
@@ -490,7 +490,7 @@ The Postler CLI provides two commands: `serve` and `build`
 ```ts
 import { createProps } from "postler";
 
-type Props = {
+type TemplateProps = {
     fuu: {
         bar: {
             baz: number,
@@ -498,7 +498,7 @@ type Props = {
     }
 }
 
-let props = createProps<Props>()
+let props = createProps<TemplateProps>()
 
 console.log(props.fuu.bar.toString()) // "props.fuu.bar"
 console.log(`${props.fuu.bar}`) // "{{props.fuu.bar}}"

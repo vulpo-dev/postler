@@ -2,10 +2,8 @@
   "name": "postler",
   "version": "0.7.0",
   "description": "",
-  "source": "src/main.ts",
-  "module": "lib/module.js",
   "main": "lib/main.js",
-  "types": "lib/types.d.ts",
+  "types": "lib/main.d.ts",
   "bin": {
     "postler": "./index.js"
   },

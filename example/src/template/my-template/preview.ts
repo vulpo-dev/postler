@@ -1,7 +1,7 @@
 import { Previews, Item } from "postler";
-import { Props } from "./types";
+import { TemplateProps } from "./types";
 
-export let Data: Previews<Props> = [
+export let Data: Previews<TemplateProps> = [
 	Item("name", {
 		name: "{{projectName}}",
 	}),

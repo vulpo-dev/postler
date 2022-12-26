@@ -1,4 +1,4 @@
-export { Template, type Props } from "./template";
+export { Template, type TemplateProps } from "./template";
 
 export default {
 	mjml: true,
