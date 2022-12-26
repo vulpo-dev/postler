@@ -146,7 +146,10 @@ export default async function handler({
 }
 
 function buildPropsSchema(src: string, name: string) {
-	let templateDir = path.join(src, "template", name).split(path.sep).join(path.posix.sep);
+	let templateDir = path
+		.join(src, "template", name)
+		.split(path.sep)
+		.join(path.posix.sep);
 
 	let program = TJS.getProgramFromFiles(
 		[path.join(templateDir, "index.ts")],

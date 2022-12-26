@@ -124,9 +124,13 @@ function renderError(error: FetchBaseQueryError | SerializedError) {
 	`;
 }
 
-function getErrorMessage(error: any) {
-	if ("message" in error) {
-		return error.message as string;
+function getErrorMessage(error: unknown) {
+	if (!error) {
+		return ""
+	}
+
+	if (typeof error === "object" && "message" in error) {
+		return (error as { message: string }).message;
 	}
 
 	return "";

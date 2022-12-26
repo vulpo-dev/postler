@@ -107,7 +107,7 @@ test.group("Helpers: Mustache", () => {
 
 		expect(markup).toEqual("{{#cond}}<div></div>{{/cond}}");
 
-		let render = (args: any) => Mustache.render(markup, args);
+		let render = (args: { cond: boolean }) => Mustache.render(markup, args);
 		expect(render({ cond: false })).toEqual("");
 		expect(render({ cond: true })).toEqual("<div></div>");
 	});
@@ -128,7 +128,7 @@ test.group("Helpers: Mustache", () => {
 			"{{#cond}}<div></div>{{/cond}}{{^cond}}<p></p>{{/cond}}",
 		);
 
-		let render = (args: any) => Mustache.render(markup, args);
+		let render = (args: { cond: boolean }) => Mustache.render(markup, args);
 		expect(render({ cond: false })).toEqual("<p></p>");
 		expect(render({ cond: true })).toEqual("<div></div>");
 	});
@@ -144,7 +144,7 @@ test.group("Helpers: Mustache", () => {
 
 		expect(markup).toEqual("{{^cond}}<div></div>{{/cond}}");
 
-		let render = (args: any) => Mustache.render(markup, args);
+		let render = (args: { cond: boolean }) => Mustache.render(markup, args);
 		expect(render({ cond: false })).toEqual("<div></div>");
 		expect(render({ cond: true })).toEqual("");
 	});
@@ -162,8 +162,8 @@ test.group("Helpers: Mustache", () => {
 
 		expect(markup).toEqual("{{#items}}<div>{{name}}</div>{{/items}}");
 
-		let render = (args: any) => Mustache.render(markup, args);
 		let items = [{ name: "one" }, { name: "two" }, { name: "three" }];
+		let render = (args: { items: typeof items }) => Mustache.render(markup, args);
 		expect(render({ items })).toEqual(
 			"<div>one</div><div>two</div><div>three</div>",
 		);

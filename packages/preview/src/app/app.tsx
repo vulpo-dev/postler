@@ -14,7 +14,7 @@ import { closeSidebar, toggleSidebar } from "~/src/store/layout.slice";
 import { SendEmail } from "~/src/component/send_email";
 
 import { SelectPreviews } from "~/src/component/select_preview";
-import { SelectViewport } from "~src/component/select_viewport/select_viewport";
+import { SelectViewport } from "~src/component/select_viewport";
 
 let DRAWER_BREAKPOINT = "(max-width: 1080px)";
 

@@ -52,7 +52,10 @@ export let Template = () => {
 															email with a simple design and clear call to
 															action. This is it.
 														</p>
-														<Button align='center' primary={TemplateProps.primary}>
+														<Button
+															align='center'
+															primary={TemplateProps.primary}
+														>
 															<If condition={TemplateProps.primary}>
 																Primary
 																<Else>Secondary</Else>

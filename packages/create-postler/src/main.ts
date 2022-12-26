@@ -15,10 +15,7 @@ yarn create postler <project-name>
 		return process.exit(1);
 	}
 
-	let outDir = path.join(
-		process.cwd(),
-		projectName,
-	);
+	let outDir = path.join(process.cwd(), projectName);
 
 	if (existsSync(outDir)) {
 		console.log(`Folder ${projectName} already exists`);
@@ -33,7 +30,7 @@ yarn create postler <project-name>
 
 	await fs.writeFile(
 		path.join(outDir, "package.json"),
-		JSON.stringify(packageJson, null, 2)
+		JSON.stringify(packageJson, null, 2),
 	);
 
 	let files = await getFiles(templateDir);
@@ -89,31 +86,33 @@ async function generatePkgJson(projectName: string) {
 		"typescript",
 	];
 
-	let resolved = await Promise.all(dependencies.map(async dep => {
-		let version = await resolveLatest(dep);
-		return [dep, version];
-	}));
+	let resolved = await Promise.all(
+		dependencies.map(async (dep) => {
+			let version = await resolveLatest(dep);
+			return [dep, version];
+		}),
+	);
 
 	return {
-		"name": projectName,
-		"private": true,
-		"version": "1.0.0",
-		"scripts": {
-			"start": "postler serve",
-			"build": "postler build"
+		name: projectName,
+		private: true,
+		version: "1.0.0",
+		scripts: {
+			start: "postler serve",
+			build: "postler build",
 		},
-		"dependencies": Object.fromEntries(resolved)
-	}
+		dependencies: Object.fromEntries(resolved),
+	};
 }
 
 type PackageInfo = {
 	"dist-tags": {
-		"latest": string
-	}
-}
+		latest: string;
+	};
+};
 
 async function resolveLatest(pkgName: string) {
-	let url = `https://registry.npmjs.org/${pkgName}`
+	let url = `https://registry.npmjs.org/${pkgName}`;
 	let parsed = await axios.get<PackageInfo>(url);
 	return parsed.data["dist-tags"].latest;
 }

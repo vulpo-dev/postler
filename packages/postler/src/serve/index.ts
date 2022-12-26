@@ -26,14 +26,14 @@ export type ServeArgs = {
 	workingDirectory?: string;
 	port?: number;
 	tmpDir?: string;
-	previewDir: string,
+	previewDir: string;
 };
 
 export default async function handler({
 	workingDirectory = process.cwd(),
 	port = 47150,
 	tmpDir = TMP_DIR,
-	previewDir
+	previewDir,
 }: ServeArgs) {
 	let cwd = path.isAbsolute(workingDirectory)
 		? workingDirectory
