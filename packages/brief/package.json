@@ -1,0 +1,25 @@
+{
+  "name": "@vulpo-dev/brief",
+  "version": "0.8.0",
+  "source": "src/lib.ts",
+  "module": "lib/module.js",
+  "main": "lib/main.js",
+  "types": "lib/types.d.ts",
+  "scripts": {
+    "start": "postler serve",
+    "build": "parcel build",
+    "check": "tsc --noEmit",
+    "prepublish": "npm run build",
+    "fmt": "rome format ./src --write",
+    "lint": "rome check ./src"
+  },
+  "dependencies": {
+    "@emotion/react": "11.10.5",
+    "@emotion/styled": "11.10.5",
+    "@types/react": "18.0.26",
+    "postler": "0.8.0",
+    "dotenv": "16.0.3",
+    "react": "18.2.0",
+    "typescript": "4.9.4"
+  }
+}

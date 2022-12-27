@@ -15,7 +15,7 @@ export let Template = () => {
 					<Title>
 						{t.hello}: {props.name}
 					</Title>
-					<p>{t.withProp}</p>
+					<Text>{t.withProp}</Text>
 					<Button align="center" primary>
 						{t.buttonLabel}
 					</Button>
@@ -36,6 +36,10 @@ let Body = styled.body`
 		font-weight: bold;
 	}
 `;
+
+let Text = styled.p`
+	font-size: 24px;
+`
 
 type ContainerProps = {
 	children?: ReactNode;
