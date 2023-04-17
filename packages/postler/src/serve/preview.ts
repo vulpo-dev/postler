@@ -167,7 +167,7 @@ function compileHandlebars(
 	let compileTranslations = Handlebars.compile(
 		JSON.stringify(translation?.translation ?? {}),
 	);
-	let compiledTranslation = JSON.parse(compileTranslations(props));
+	let compiledTranslation = JSON.parse(compileTranslations({ props }));
 
 	let compileMarkup = Handlebars.compile(markup);
 	return compileMarkup({ props, t: compiledTranslation });
